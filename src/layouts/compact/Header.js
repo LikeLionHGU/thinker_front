@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { AppBar, Toolbar, Box, Link } from '@mui/material';
+import { AppBar, Toolbar, Box, Button } from '@mui/material';
 // config
 import { HEADER } from '../../config-global';
 // utils
 import { bgBlur } from '../../utils/cssStyles';
 // components
 import Logo from '../../components/logo';
+import FlexAlignBox from 'src/components/common/FlexAlignBox';
+import LinkTextButton from 'src/components/header/LinkTextButton';
+import Divider from 'src/components/header/Divider';
+// import Link from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -19,9 +24,21 @@ export default function Header({ isOffset }) {
   const theme = useTheme();
 
   return (
-    <AppBar color="transparent" sx={{ boxShadow: 0 }}>
+    <AppBar
+      color="transparent"
+      sx={{
+        position: 'fixed',
+        boxShadow: 0,
+        px: {
+          xs: '10px',
+          md: '20px',
+        },
+      }}
+    >
       <Toolbar
         sx={{
+          display: 'flex',
+          itemsAlign: 'center',
           justifyContent: 'space-between',
           height: {
             xs: HEADER.H_MOBILE,
@@ -39,11 +56,35 @@ export default function Header({ isOffset }) {
           }),
         }}
       >
-        <Logo />
+        <FlexAlignBox>
+          <Logo />
+          <FlexAlignBox>
+            <LinkTextButton text="홈" link="/" />
+            <Divider />
+            <LinkTextButton text="커뮤니티" link="/" />
+          </FlexAlignBox>
+        </FlexAlignBox>
 
-        <Link variant="subtitle2" color="inherit">
-          Need Help?
-        </Link>
+        <FlexAlignBox>
+          <BookmarkBorderIcon
+            sx={{
+              fontSize: {
+                xs: '20px',
+                md: '25px',
+              },
+              mr: {
+                xs: '0px',
+                md: '10px',
+              },
+              mb: {
+                xs: '0px',
+                md: '2px',
+              },
+              color: 'success.contrastText',
+            }}
+          />
+          <LinkTextButton text="로그인" link="/" />
+        </FlexAlignBox>
       </Toolbar>
 
       {isOffset && <Shadow />}

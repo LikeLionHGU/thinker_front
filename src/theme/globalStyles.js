@@ -10,6 +10,10 @@ export default function GlobalStyles() {
         '*': {
           boxSizing: 'border-box',
         },
+        a: {
+          textDecoration: 'none',
+          color: 'inherit',
+        },
         html: {
           margin: 0,
           padding: 0,
