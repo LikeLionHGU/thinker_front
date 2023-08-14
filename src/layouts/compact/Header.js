@@ -39,7 +39,10 @@ export default function Header({ isOffset }) {
           }),
         }}
       >
-        <Logo />
+        <Box sx={{ display: 'flex' }}>
+          <Logo />
+          <Box sx={{ display: 'flex', alignItems: 'center' }}></Box>
+        </Box>
 
         <Link variant="subtitle2" color="inherit">
           Need Help?

@@ -6,11 +6,11 @@ import { useRouter } from 'next/router';
 export default function Index() {
   const router = useRouter();
 
-  useEffect(() => {
-    if (router.pathname === '/') {
-      router.push('/dashboard/one');
-    }
-  });
+  // useEffect(() => {
+  //   if (router.pathname === '/') {
+  //     router.push('/dashboard/one');
+  //   }
+  // });
 
-  return null;
+  return <div>hello</div>;
 }
