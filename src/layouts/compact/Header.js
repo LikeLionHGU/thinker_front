@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { AppBar, Toolbar, Box, Link } from '@mui/material';
+import { AppBar, Toolbar, Box, Button } from '@mui/material';
 // config
 import { HEADER } from '../../config-global';
 // utils
 import { bgBlur } from '../../utils/cssStyles';
 // components
 import Logo from '../../components/logo';
+import FlexAlignBox from 'src/components/common/FlexAlignBox';
+import Link from 'next/link';
+import LinkTextButton from 'src/components/common/LinkTextButton';
+// import Link from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +23,7 @@ export default function Header({ isOffset }) {
   const theme = useTheme();
 
   return (
-    <AppBar color="transparent" sx={{ boxShadow: 0 }}>
+    <AppBar color="transparent" sx={{ boxShadow: 0, px: '20px' }}>
       <Toolbar
         sx={{
           justifyContent: 'space-between',
@@ -39,14 +43,12 @@ export default function Header({ isOffset }) {
           }),
         }}
       >
-        <Box sx={{ display: 'flex' }}>
+        <FlexAlignBox>
           <Logo />
-          <Box sx={{ display: 'flex', alignItems: 'center' }}></Box>
-        </Box>
+          <FlexAlignBox>홈</FlexAlignBox>
+        </FlexAlignBox>
 
-        <Link variant="subtitle2" color="inherit">
-          Need Help?
-        </Link>
+        <LinkTextButton text="로그인" link="/" />
       </Toolbar>
 
       {isOffset && <Shadow />}
