@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -12,5 +13,5 @@ export default function Index() {
   //   }
   // });
 
-  return <div>dd</div>;
+  return <Box sx={{ backgroundColor: 'success.darker', height: '100vh' }}></Box>;
 }

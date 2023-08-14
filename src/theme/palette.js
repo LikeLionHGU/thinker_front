@@ -23,7 +23,7 @@ const PRIMARY = {
   main: '#B0C9F5', // main blue
   dark: '#3571DE', // dark blue
   darker: '#3C3AE3', // darker blue
-  contrastText: '#FFFFFF',
+  contrastText: '#F3F3F3',
 };
 
 const SECONDARY = {

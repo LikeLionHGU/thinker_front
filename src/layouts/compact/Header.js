@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { AppBar, Toolbar, Box, Button } from '@mui/material';
@@ -23,9 +24,21 @@ export default function Header({ isOffset }) {
   const theme = useTheme();
 
   return (
-    <AppBar color="transparent" sx={{ boxShadow: 0, px: '20px' }}>
+    <AppBar
+      color="transparent"
+      sx={{
+        position: 'fixed',
+        boxShadow: 0,
+        px: {
+          xs: '10px',
+          md: '20px',
+        },
+      }}
+    >
       <Toolbar
         sx={{
+          display: 'flex',
+          itemsAlign: 'center',
           justifyContent: 'space-between',
           height: {
             xs: HEADER.H_MOBILE,
@@ -53,8 +66,23 @@ export default function Header({ isOffset }) {
         </FlexAlignBox>
 
         <FlexAlignBox>
-          <LinkTextButton text="로그인" link="/" />
-          <Divider />
+          <BookmarkBorderIcon
+            sx={{
+              fontSize: {
+                xs: '20px',
+                md: '25px',
+              },
+              mr: {
+                xs: '0px',
+                md: '10px',
+              },
+              mb: {
+                xs: '0px',
+                md: '2px',
+              },
+              color: 'success.contrastText',
+            }}
+          />
           <LinkTextButton text="로그인" link="/" />
         </FlexAlignBox>
       </Toolbar>
