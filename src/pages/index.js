@@ -55,7 +55,7 @@ export default function Index() {
             <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
               오늘의 키워드를 조합하여 창의적인 아이디어를 만들어보세요.
             </Typography>
-          </Flex>
+          </FlexCenterBox>
         </>
       </Box>
     </Box>
