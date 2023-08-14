@@ -9,8 +9,8 @@ import { bgBlur } from '../../utils/cssStyles';
 // components
 import Logo from '../../components/logo';
 import FlexAlignBox from 'src/components/common/FlexAlignBox';
-import Link from 'next/link';
-import LinkTextButton from 'src/components/common/LinkTextButton';
+import LinkTextButton from 'src/components/header/LinkTextButton';
+import Divider from 'src/components/header/Divider';
 // import Link from 'next/link';
 
 // ----------------------------------------------------------------------
@@ -45,10 +45,18 @@ export default function Header({ isOffset }) {
       >
         <FlexAlignBox>
           <Logo />
-          <FlexAlignBox>홈</FlexAlignBox>
+          <FlexAlignBox>
+            <LinkTextButton text="홈" link="/" />
+            <Divider />
+            <LinkTextButton text="커뮤니티" link="/" />
+          </FlexAlignBox>
         </FlexAlignBox>
 
-        <LinkTextButton text="로그인" link="/" />
+        <FlexAlignBox>
+          <LinkTextButton text="로그인" link="/" />
+          <Divider />
+          <LinkTextButton text="로그인" link="/" />
+        </FlexAlignBox>
       </Toolbar>
 
       {isOffset && <Shadow />}
