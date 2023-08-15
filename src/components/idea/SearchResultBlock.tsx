@@ -1,10 +1,22 @@
 import { Box, Button, Typography } from '@mui/material';
-import { searchResult } from './data';
+
 import Image from 'next/image';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
-export default function SearchResultBlock() {
-  const;
+type SearchResultBlockProps = {
+  item: {
+    title: string;
+    link: string;
+    snippet: string;
+    pagemap: {
+      metatags: {
+        'og:image': string;
+      }[];
+    };
+  };
+};
+
+export default function SearchResultBlock({ item }: SearchResultBlockProps) {
   return (
     <Box
       sx={{
@@ -17,7 +29,7 @@ export default function SearchResultBlock() {
       }}
     >
       <Box sx={{ display: 'flex', width: '100%' }}>
-        <a href={`${item.link}`} target="_blank">
+        <a href={`${item.link}`} target="_blank" rel="noreferrer">
           <Box sx={{ minWidth: '250px', height: '150px' }}>
             <Image
               src={item.pagemap.metatags[0]['og:image']}
@@ -27,7 +39,7 @@ export default function SearchResultBlock() {
             />
           </Box>
         </a>
-        <a href={`${item.link}`} target="_blank">
+        <a href={`${item.link}`} target="_blank" rel="noreferrer">
           <Box
             sx={{
               pl: '30px',

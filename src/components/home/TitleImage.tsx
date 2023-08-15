@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useRecoilValue } from 'recoil';
-import { isAuto } from 'src/store/atom';
+import { isAuto } from '../../store/atom';
 
 export default function TitleImage() {
   const isAutoState = useRecoilValue(isAuto);
