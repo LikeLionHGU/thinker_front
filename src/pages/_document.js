@@ -9,6 +9,7 @@ import createEmotionCache from '../utils/createEmotionCache';
 import palette from '../theme/palette';
 import { primaryFont } from '../theme/typography';
 import Header from 'src/layouts/compact/Header';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
