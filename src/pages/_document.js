@@ -8,6 +8,8 @@ import createEmotionCache from '../utils/createEmotionCache';
 // theme
 import palette from '../theme/palette';
 import { primaryFont } from '../theme/typography';
+import Header from 'src/layouts/compact/Header';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +43,7 @@ export default class MyDocument extends Document {
         </Head>
 
         <body>
+          <Header />
           <Main />
           <NextScript />
         </body>
