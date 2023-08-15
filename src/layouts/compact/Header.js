@@ -66,23 +66,6 @@ export default function Header({ isOffset }) {
         </FlexAlignBox>
 
         <FlexAlignBox>
-          <BookmarkBorderIcon
-            sx={{
-              fontSize: {
-                xs: '20px',
-                md: '25px',
-              },
-              mr: {
-                xs: '0px',
-                md: '10px',
-              },
-              mb: {
-                xs: '0px',
-                md: '2px',
-              },
-              color: 'success.contrastText',
-            }}
-          />
           <LinkTextButton text="로그인" link="/" />
         </FlexAlignBox>
       </Toolbar>

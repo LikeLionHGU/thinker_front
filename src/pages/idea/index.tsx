@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { searchResult } from './data';
 import Image from 'next/image';
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 export default function IdeaResultPage() {
   return (
     <Box
@@ -62,7 +62,6 @@ export default function IdeaResultPage() {
             </a>
             <Box
               sx={{
-                border: 1,
                 height: '100%',
                 width: '100%',
                 display: 'flex',
@@ -71,7 +70,17 @@ export default function IdeaResultPage() {
                 alignItems: 'end',
                 p: '10px',
               }}
-            ></Box>
+            >
+              <BookmarkBorderIcon />
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: 'primary.darker',
+                }}
+              >
+                분석하기
+              </Button>
+            </Box>
           </Box>
         </Box>
       ))}
