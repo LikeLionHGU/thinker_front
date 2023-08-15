@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box, Link } from '@mui/material';
+import Image from 'next/image';
 
 // ----------------------------------------------------------------------
 
@@ -47,12 +48,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
       }}
       {...other}
     >
-      <Box
-        component="img"
-        src="./assets/images/home/logo_thinkey.png"
-        sx={{ width: '100%' }}
-        alt="logo"
-      />
+      <Image src="/assets/images/home/logo_thinkey.png" width={150} height={40} alt="logo" />
     </Box>
   );
 
