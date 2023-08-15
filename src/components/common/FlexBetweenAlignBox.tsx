@@ -1,6 +1,11 @@
 import { Box } from '@mui/material';
 
-export default function FlexBetweenAlignBox({ children, width }: { children: React.ReactNode }) {
+type FlexBetweenAlignBoxProps = {
+  children: React.ReactNode;
+  width?: string;
+};
+
+export default function FlexBetweenAlignBox({ children, width }: FlexBetweenAlignBoxProps) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width }}>
       {children}

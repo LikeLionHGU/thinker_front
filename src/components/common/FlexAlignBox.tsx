@@ -1,5 +1,10 @@
 import { Box } from '@mui/material';
 
-export default function FlexAlignBox({ children, width }: { children: React.ReactNode }) {
-  return <Box sx={{ display: 'flex', alignItems: 'center', width }}>{children}</Box>;
+type FlexAlignBoxProps = {
+  children: React.ReactNode;
+  width?: string;
+};
+
+export default function FlexAlignBox({ children, width }: FlexAlignBoxProps) {
+  return (<Box sx={{ display: 'flex', alignItems: 'center', width }}>{children}</Box>);
 }
