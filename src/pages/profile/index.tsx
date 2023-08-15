@@ -6,9 +6,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useRecoilState } from 'recoil';
 import { profileSelectedIndex } from '../../store/atom';
+import Sidebar from '../../components/profile/Sidebar';
+import Image from 'next/image';
+import FlexAlignBox from '../../components/common/FlexAlignBox';
 export default function profile() {
-  const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
-
   return (
     <Box
       sx={{
@@ -20,58 +21,25 @@ export default function profile() {
         pt: '100px',
       }}
     >
-      <Box
-        sx={{
-          position: 'fixed',
-          left: '50px',
-          top: '150px',
-          borderRadius: '10px',
-          width: '300px',
-          height: '350px',
-          backgroundColor: '#D9D9D9',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          p: '10px',
-        }}
-      >
-        <AccountCircleIcon sx={{ width: '100px', height: '100px', borderRadius: '50px' }} />
-        <Typography variant="h5" sx={{ mb: '10px' }}>
-          {member.name}
-        </Typography>
-        <Typography variant="h6" sx={{ mb: '10px', color: 'success.main' }}>
-          {member.email}
-        </Typography>
-        {/* <Box sx={{ borderTop: 2, borderBottom: 2, width: '100%', py: '10px' }}></Box> */}
-        <List component="nav" sx={{ width: '100%' }} aria-label="main mailbox folders">
-          <ListItemButton
-            sx={{ height: '70px', borderTop: 2, borderBottom: 2 }}
-            selected={selectedIndex === 0}
-            onClick={(event) => setSelectedIndex(0)}
-          >
-            <ListItemIcon>
-              <FormatListBulletedIcon sx={{ fontSize: '30px' }} />
-            </ListItemIcon>
-
-            <ListItemText
-              primary="내가 쓴 아이디어"
-              sx={{ scale: '1.4', textAlign: 'center', mr: 4 }}
-            />
-          </ListItemButton>
-          <ListItemButton
-            sx={{ height: '70px' }}
-            selected={selectedIndex === 1}
-            onClick={(event) => setSelectedIndex(1)}
-          >
-            <ListItemIcon>
-              <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="서비스 모아보기"
-              sx={{ scale: '1.4', textAlign: 'center', mr: 4 }}
-            />
-          </ListItemButton>
-        </List>
+      <Sidebar />
+      <Box sx={{ display: 'flex', flexDirection: ' column', gap: '40px' }}>
+        <Image
+          src={`/assets/images/profile/profileLock.png`}
+          width={200}
+          height={250}
+          alt="빈 프로필 큰 사진"
+        />
+        <FlexAlignBox>
+          <Image
+            src={`/assets/images/profile/profileKey.png`}
+            width={20}
+            height={30}
+            alt="빈 프로필 작은 사진"
+          />
+          <Typography sx={{ color: 'success.contrastText', ml: '20px', mt: '5px' }} variant="h6">
+            마이페이지가 텅 비었어요
+          </Typography>
+        </FlexAlignBox>
       </Box>
     </Box>
   );
