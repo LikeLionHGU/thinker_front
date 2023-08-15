@@ -8,38 +8,41 @@ export default function SearchLoading() {
       sx={{
         backgroundColor: 'success.darker',
         minHeight: '100vh',
-        pt: '100px',
+        pt: '200px',
         display: 'flex',
         flexDirection: 'column',
         gap: '50px',
         alignItems: 'center',
       }}
     >
-      <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
-        Loading
-      </Typography>
-      <div style={{ display: 'flex', gap: '10px' }}>
-        {[0, 1, 2].map((i) => (
-          <m.div
-            key={i}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0.5 }}
-            transition={{
-              repeat: Infinity,
-              repeatType: 'mirror',
-              duration: 0.5,
-              delay: i * 0.2,
-            }}
-            style={{
-              border: 1,
-              width: '15px',
-              height: '15px',
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            }}
-          />
-        ))}
+      <div>
+        <Typography variant="h5" sx={{ color: 'success.contrastText' }}>
+          LOADING
+        </Typography>
+        <div style={{ height: '5px' }}></div>
+        <div style={{ display: 'flex', gap: '7px', justifyContent: 'center' }}>
+          {[0, 1, 2].map((i) => (
+            <m.div
+              key={i}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0.5 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'mirror',
+                duration: 0.5,
+                delay: i * 0.2,
+              }}
+              style={{
+                border: 1,
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: 'white',
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '30px' }}>
@@ -61,7 +64,7 @@ export default function SearchLoading() {
               y: [0, -50, 0],
             }}
           >
-            <Image src={src} width={100} height={150} alt="gd" />
+            <Image src={src} width={110} height={150} alt="gd" />
           </m.div>
         ))}
       </div>
@@ -73,7 +76,7 @@ export default function SearchLoading() {
           width: '400px',
           py: '10px',
           backgroundColor: 'success.dark',
-          color: 'secondary.main',
+          color: '#4FFF32',
         }}
       >
         잠시만 기다려주세요 :) <br />더 많은 영감을 모으고 있는 중입니다.
