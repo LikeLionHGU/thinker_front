@@ -61,12 +61,12 @@ export default function Header({ isOffset }) {
           <FlexAlignBox>
             <LinkTextButton text="홈" link="/" />
             <Divider />
-            <LinkTextButton text="커뮤니티" link="/" />
+            <LinkTextButton text="커뮤니티" link="/community" />
           </FlexAlignBox>
         </FlexAlignBox>
 
         <FlexAlignBox>
-          <LinkTextButton text="로그인" link="/" />
+          <LinkTextButton text="로그인" link="/profile" />
         </FlexAlignBox>
       </Toolbar>
 
