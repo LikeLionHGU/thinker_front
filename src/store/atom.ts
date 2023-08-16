@@ -9,3 +9,8 @@ export const profileSelectedIndex = atom({
   key: 'profileSelectedIndex',
   default: 0,
 });
+
+export const scriptAtom = atom({
+  key: 'script',
+  default: '',
+});

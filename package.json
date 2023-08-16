@@ -25,6 +25,7 @@
     "@hookform/resolvers": "^2.9.11",
     "@iconify/react": "^4.1.0",
     "@mui/icons-material": "^5.14.3",
+    "@mui/joy": "^5.0.0-beta.2",
     "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.10",
     "@next/font": "^13.1.6",
