@@ -8,7 +8,7 @@ export const getAllCommunities = async () => {
 
 export const getOneCommunity = async (userId: number) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post/${userId}`, {
-    cache: '1',
+    cache: 'no-store',
   });
 
   return response.data;
