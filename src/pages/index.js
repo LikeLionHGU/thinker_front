@@ -15,7 +15,14 @@ export default function Index() {
   //     router.push('/dashboard/one');
   //   }
   // });
-
+  function handleEnterPress(event) {
+    if (event.key === 'Enter') {
+      // 원하는 동작을 여기에 넣어주세요.
+      event.preventDefault();
+      console.log(event.target.value);
+      // 폼 제출을 막기 위함
+    }
+  }
   return (
     <Box
       sx={{
@@ -49,6 +56,7 @@ export default function Index() {
             sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
             placeholder="떠오르는 아이디어를 검색해보세요."
             inputProps={{ 'aria-label': 'search google maps' }}
+            onKeyPress={handleEnterPress}
           />
         </Paper>
 

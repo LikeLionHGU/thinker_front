@@ -12,6 +12,9 @@ import Logo from '../../components/logo';
 import FlexAlignBox from 'src/components/common/FlexAlignBox';
 import LinkTextButton from 'src/components/header/LinkTextButton';
 import Divider from 'src/components/header/Divider';
+import { m } from 'framer-motion';
+import { useScroll } from 'react-use';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import Link from 'next/link';
 
 // ----------------------------------------------------------------------

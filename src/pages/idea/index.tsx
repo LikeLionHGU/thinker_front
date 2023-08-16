@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import SearchResultBlock from 'src/components/idea/SearchResultBlock';
+import { searchResult } from 'src/data/searchResultData';
 
 export default function IdeaResultPage() {
   return (
