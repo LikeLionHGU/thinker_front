@@ -7,10 +7,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { member } from 'src/data/memberData';
 
 interface IMember {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
 }
-export default function Sidebar({ member }: IMember) {
+export default function Sidebar({ member }) {
   const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
   return (
     <Box
