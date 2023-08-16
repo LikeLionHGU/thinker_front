@@ -4,6 +4,9 @@ import FlexAlignBox from 'src/components/common/FlexAlignBox';
 import CommentTextArea from 'src/components/community/CommentTextArea';
 import TodayKeywords from 'src/components/home/TodayKeywords';
 import { allPost } from 'src/data/CommunityData';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 
 export default function communityPage() {
   const converter = (localDateTime) => {
@@ -35,17 +38,17 @@ export default function communityPage() {
     <Box
       sx={{
         backgroundColor: 'success.darker',
-        height: '100vh',
+        minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
         gap: '50px',
-        pt: '100px',
+        pt: '150px',
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '800px' }}>
         <TodayKeywords />
 
-        <Box sx={{ p: '30px', borderTop: 1, borderColor: '#303030', mt: '30px' }}>
+        <Box sx={{ p: '30px', borderColor: '#303030', mt: '30px' }}>
           <CommentTextArea />
 
           {allPost.map((post) => (
@@ -55,6 +58,9 @@ export default function communityPage() {
                 color: 'white',
                 height: '300px',
                 borderTop: 1,
+
+                mt: '30px',
+
                 borderColor: '#303030',
                 p: '30px',
                 display: 'flex',
@@ -86,7 +92,16 @@ export default function communityPage() {
                   </Typography>
                 </Box>
 
-                <Box></Box>
+                <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
+                  {post.isLiked ? (
+                    <FavoriteIcon sx={{ color: 'white' }} />
+                  ) : (
+                    <FavoriteBorderIcon sx={{ color: 'white' }} />
+                  )}
+                  {post.postLikeCount}
+                  <ModeCommentOutlinedIcon sx={{ ml: 2 }} />
+                  {133}
+                </Box>
               </Box>
               <Box>{converter(post.date)}</Box>
             </Box>
