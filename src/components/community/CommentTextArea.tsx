@@ -29,7 +29,7 @@ export default function CommentTextArea() {
   const handleUpload = () => {
     {
       const post = {
-        title: '',
+        title: 'title',
         content: script,
       };
 

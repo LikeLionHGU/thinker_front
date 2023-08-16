@@ -17,7 +17,7 @@ export default function GoogleButton() {
     const decodedToken = jwtDecode(credentialResponse.credential);
 
     const userInfo = {
-      id: decodedToken.sub,
+      id: decodedToken.sub.slice(0, 5),
       name: decodedToken.family_name,
       email: decodedToken.email,
     };
@@ -41,7 +41,7 @@ export default function GoogleButton() {
     });
 
     setIsLoginState(true);
-    setIsLoginIdState(decodedToken.sub);
+    setIsLoginIdState(decodedToken.sub.slice(0, 5));
     // }, []);
 
     // const response = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user`, {
