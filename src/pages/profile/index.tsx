@@ -8,20 +8,19 @@ import EmptyAlert from 'src/components/profile/EmptyAlert';
 import SearchResultBlock from 'src/components/idea/SearchResultBlock';
 import ServiceAchievement from 'src/components/profile/ServiceAchievement';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserApi } from 'src/apis/user';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export const getServerSideProps: GetServerSideProps<{
-  repo: any;
-}> = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/123`);
-  const repo = await res.json();
-  return { props: { repo } };
-};
+export default function Profile() {
+  const [profileInfo, setProfileInfo] = useState(null);
 
-export default function profile({ repo }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(repo);
+  useEffect(() => {
+    getUserApi(29).then((res) => {
+      setProfileInfo(res);
+      console.log(res);
+    });
+  }, []);
 
   return (
     <Box
@@ -34,7 +33,7 @@ export default function profile({ repo }: InferGetServerSidePropsType<typeof get
         pt: '132px',
       }}
     >
-      <Sidebar />
+      <Sidebar member={{ name: profileInfo?.name, email: profileInfo?.email }} />
       {/* <EmptyAlert /> */}
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '300px' }}></Box>

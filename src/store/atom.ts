@@ -36,6 +36,6 @@ export const isLoginAtom = atom({
 
 export const loginIdAtom = atom({
   key: 'loginId',
-  default: {},
+  default: -1,
   effects_UNSTABLE: [persistAtom],
 });

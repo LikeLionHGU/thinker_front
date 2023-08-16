@@ -10,6 +10,8 @@ import palette from '../theme/palette';
 import { primaryFont } from '../theme/typography';
 import Header from 'src/layouts/compact/Header';
 import { Box } from '@mui/material';
+import { RecoilRoot } from 'recoil';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // ----------------------------------------------------------------------
 
@@ -43,9 +45,13 @@ export default class MyDocument extends Document {
         </Head>
 
         <body>
-          <Header />
+          {/* <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
+            <RecoilRoot> */}
+
           <Main />
           <NextScript />
+          {/* </RecoilRoot>
+          </GoogleOAuthProvider> */}
         </body>
       </Html>
     );

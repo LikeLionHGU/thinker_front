@@ -2,29 +2,58 @@
 
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { loginApi } from '/src/apis/user.ts';
 import { Button } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { isLoginAtom, loginIdAtom } from '/src/store/atom.ts';
+import axios from 'axios';
 export default function GoogleButton() {
-  const setIsLoginState = useRecoilValue(isLoginAtom);
-  const setIsLoginIdState = useRecoilValue(loginIdAtom);
+  const setIsLoginState = useSetRecoilState(isLoginAtom);
+  const setIsLoginIdState = useSetRecoilState(loginIdAtom);
   // const { loginWithCredential } = useAuthContext();
 
   const onSuccess = async (credentialResponse) => {
     const decodedToken = jwtDecode(credentialResponse.credential);
 
-    console.log(decodedToken);
     const userInfo = {
-      id: parseInt(decodedToken.sub.slice(0, 8)),
-      name: decodedToken.family_name,
+      id: decodedToken.sub.slice(0, 5),
+      name: decodedToken.family_name + decodedToken.given_name,
       email: decodedToken.email,
     };
-    const res = await loginApi(decodedToken.sub);
+
+    // const options = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(userInfo),
+    //   cache: 'no-cache',
+    // };
+    // fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user`, options)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     console.log(result);
+    //   });
+
+    loginApi(userInfo).then((res) => {
+      console.log(res);
+    });
 
     setIsLoginState(true);
-    setIsLoginIdState(decodedToken.sub);
+    setIsLoginIdState(decodedToken.sub.slice(0, 5));
+    // }, []);
+
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(userInfo),
+    //   cache: 'no-cache',
+    // });
+    // const result = await response.json();
+    // console.log(result);
 
     // userLogin(decodedToken.sub)
     //   .then((response) => {

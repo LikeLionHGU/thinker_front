@@ -20,7 +20,6 @@ export default function TodayKeywords() {
 
   // 일치하는 항목이 있으면 해당 keywords를 반환하고, 없으면 undefined를 반환합니다.
   const keywordsForToday = todayKeywordObject ? todayKeywordObject.keywords : undefined;
-  console.log(today, todayKeywordObject, keywordsForToday);
 
   return (
     <AnimatePresence>

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
 import { useSetRecoilState } from 'recoil';
 import { searchResultAtom } from 'src/store/atom';
-import GoogleButton from '../auth/GoogleLogin';
+import GoogleButton from '../auth/GoogleButton';
 import { getAllCommunities } from '/src/apis/post.ts';
 const { Configuration, OpenAIApi } = require('openai');
 
@@ -22,14 +22,6 @@ const openai = new OpenAIApi(configuration);
 export default function Index() {
   const setAnswer = useSetRecoilState(searchResultAtom);
   const router = useRouter();
-
-  console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
-
-  // useEffect(() => {
-  //   if (router.pathname === '/') {
-  //     router.push('/dashboard/one');
-  //   }
-  // });
 
   async function handleEnterPress(event) {
     if (event.key === 'Enter') {
@@ -109,7 +101,6 @@ export default function Index() {
         justifyContent: 'center',
       }}
     >
-      <GoogleButton />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', px: '50px' }}>
         <TitleImage />
 
