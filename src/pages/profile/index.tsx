@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Typography } from '@mui/material';
 import Sidebar from '../../components/profile/Sidebar';
 import Image from 'next/image';
@@ -6,27 +8,19 @@ import EmptyAlert from 'src/components/profile/EmptyAlert';
 import SearchResultBlock from 'src/components/idea/SearchResultBlock';
 import ServiceAchievement from 'src/components/profile/ServiceAchievement';
 import axios from 'axios';
+import { useEffect } from 'react';
+import { getUserApi } from 'src/apis/user';
 
-export default function profile() {
-  // async function fetchData(postId) {
-  //   try {
-  //     const response = await axios.get(`${process.env.NEXT_PUBLIC_LOCAL_URL}/api/post/1`);
+export const getServerSideProps: GetServerSideProps<{
+  repo: any;
+}> = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/123`);
+  const repo = await res.json();
+  return { props: { repo } };
+};
 
-  //     // if (!response.ok) {
-  //     //   throw new Error(`Failed with status: ${response.status}`);
-  //     // }
-
-  //     // const res = response.data;
-
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // }
-
-  // fetchData(123).then((res) => {
-  //   console.log(res.data);
-  // });
+export default function profile({ repo }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(repo);
 
   return (
     <Box
