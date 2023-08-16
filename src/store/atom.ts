@@ -14,3 +14,8 @@ export const scriptAtom = atom({
   key: 'script',
   default: '',
 });
+
+export const searchResultAtom = atom({
+  key: 'searchResult',
+  default: [],
+});

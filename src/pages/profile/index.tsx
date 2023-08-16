@@ -19,8 +19,11 @@ export default function profile() {
       }}
     >
       <Sidebar />
-      <EmptyAlert />
-      <ServiceAchievement />
+      {/* <EmptyAlert /> */}
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ width: '300px' }}></Box>
+        <ServiceAchievement />
+      </Box>
     </Box>
   );
 }
