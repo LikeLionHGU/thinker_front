@@ -1,4 +1,10 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist({
+  key: 'localStorage', //원하는 key 값 입력
+  storage: localStorage,
+});
 
 export const isAuto = atom({
   key: 'isAuto',
@@ -18,4 +24,16 @@ export const scriptAtom = atom({
 export const searchResultAtom = atom({
   key: 'searchResult',
   default: [],
+});
+
+export const isLoginAtom = atom({
+  key: 'isLogin',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const loginIdAtom = atom({
+  key: 'loginId',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
 });
