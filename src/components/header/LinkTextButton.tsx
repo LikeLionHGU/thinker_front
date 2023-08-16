@@ -1,19 +1,10 @@
 import { Button, useTheme } from '@mui/material';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
-import { loginIdAtom } from 'src/store/atom';
 
 export default function LinkTextButton({ text, link }) {
-  const userId = useRecoilValue(loginIdAtom);
   const theme = useTheme();
-
   return (
-    <Link
-      href={{
-        pathname: `${link}`,
-        query: link === '/community' && { ea: userId },
-      }}
-    >
+    <Link href={link}>
       <Button
         variant="text"
         sx={{

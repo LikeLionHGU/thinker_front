@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FlexAlignBox from 'src/components/common/FlexAlignBox';
 import CommentTextArea from 'src/components/community/CommentTextArea';
 import TodayKeywords from 'src/components/home/TodayKeywords';
@@ -7,8 +7,26 @@ import { allPost } from 'src/data/CommunityData';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import { getAllCommunities, getOneCommunity } from 'src/apis/post';
 
-export default function communityPage() {
+export default function CommunityPage() {
+  const [allPost, setAllPost] = useState([]);
+
+  //   fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post`, {
+  //     cashe: 'no-cache',
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => setAllPost(res));
+  console.log('!');
+  useEffect(() => {
+    getAllCommunities().then((res) => {
+      setAllPost(res);
+    });
+  }, []);
+  //   getOneCommunity().then((res) => {
+  //     console.log(res);
+  //   });
+
   const converter = (localDateTime) => {
     const inputDate = new Date(localDateTime);
     const currentDate = new Date();

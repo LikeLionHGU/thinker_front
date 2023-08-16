@@ -15,7 +15,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 export const getServerSideProps: GetServerSideProps<{
   repo: any;
 }> = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/123`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/29`);
   const repo = await res.json();
   return { props: { repo } };
 };
