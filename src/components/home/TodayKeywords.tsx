@@ -39,7 +39,7 @@ export default function TodayKeywords() {
             </Typography>
           </FlexCenterBox>
           <Box sx={{ height: '20px' }} />
-          <FlexCenterBox>
+          <FlexCenterBox width="700">
             {todayKeywords.map((keyword, index) => (
               <>
                 <Chip
@@ -51,7 +51,7 @@ export default function TodayKeywords() {
                     p: 1,
                     backgroundColor: 'success.dark',
                   }}
-                ></Chip>
+                />
                 {index !== 2 && <PlusDivider />}
               </>
             ))}

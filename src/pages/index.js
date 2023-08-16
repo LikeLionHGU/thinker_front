@@ -1,11 +1,6 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Chip, IconButton, InputBase, Paper, Typography } from '@mui/material';
+import { Box, IconButton, InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import FlexAlignBox from 'src/components/common/FlexAlignBox';
-import Divider from 'src/components/header/Divider';
-import FlexCenterBox from 'src/components/common/FlexCenterBox';
-import PlusDivider from 'src/components/header/PlusDivider';
 import TodayKeywords from 'src/components/home/TodayKeywords';
 import ToggleButton from 'src/components/home/ToggleButton';
 import TitleImage from 'src/components/home/TitleImage';

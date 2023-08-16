@@ -1,11 +1,4 @@
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { member } from './data';
-import { Profiler, useState } from 'react';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import { useRecoilState } from 'recoil';
-import { profileSelectedIndex } from '../../store/atom';
+import { Box, Typography } from '@mui/material';
 import Sidebar from '../../components/profile/Sidebar';
 import Image from 'next/image';
 import FlexAlignBox from '../../components/common/FlexAlignBox';
