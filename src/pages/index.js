@@ -23,14 +23,6 @@ export default function Index() {
   const setAnswer = useSetRecoilState(searchResultAtom);
   const router = useRouter();
 
-  console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
-
-  // useEffect(() => {
-  //   if (router.pathname === '/') {
-  //     router.push('/dashboard/one');
-  //   }
-  // });
-
   async function handleEnterPress(event) {
     if (event.key === 'Enter') {
       // 원하는 동작을 여기에 넣어주세요.
