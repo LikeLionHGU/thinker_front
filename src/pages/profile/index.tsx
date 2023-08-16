@@ -10,7 +10,7 @@ import ServiceAchievement from 'src/components/profile/ServiceAchievement';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { getUserApi } from 'src/apis/user';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 export const getServerSideProps: GetServerSideProps<{
   repo: any;
