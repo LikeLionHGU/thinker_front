@@ -15,7 +15,7 @@ export const scriptAtom = atom({
   default: '',
 });
 
-export const searchResult = atom({
+export const searchResultAtom = atom({
   key: 'searchResult',
   default: [],
 });

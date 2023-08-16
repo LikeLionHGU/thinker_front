@@ -7,7 +7,7 @@ import TitleImage from 'src/components/home/TitleImage';
 import { useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
 import { useSetRecoilState } from 'recoil';
-import { searchResult } from 'src/store/atom';
+import { searchResultAtom } from 'src/store/atom';
 const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({
@@ -18,7 +18,7 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
-  const setAnswer = useSetRecoilState(searchResult);
+  const setAnswer = useSetRecoilState(searchResultAtom);
   const router = useRouter();
 
   // useEffect(() => {
@@ -27,11 +27,12 @@ export default function Index() {
   //   }
   // });
 
-  function handleEnterPress(event) {
+  async function handleEnterPress(event) {
     if (event.key === 'Enter') {
       // 원하는 동작을 여기에 넣어주세요.
       event.preventDefault();
-      chatGptApi(event.target.value);
+      await chatGptApi(event.target.value);
+      router.push('/idea');
       // console.log(event.target.value);
       // 폼 제출을 막기 위함
     }
@@ -89,8 +90,8 @@ export default function Index() {
     console.log(word);
     const searchResult = await SearchAPI(word);
     if (searchResult?.items?.length > 3) {
-      setAnswer((prev) => [...prev, ...searchResult?.items.slice(0, 3)]);
-    } else {
+      setAnswer((prev) => [...prev, ...(searchResult?.items).slice(0, 3)]);
+    } else if (searchResult?.items?.length > 0) {
       setAnswer((prev) => [...prev, ...searchResult?.items]);
     }
   };
