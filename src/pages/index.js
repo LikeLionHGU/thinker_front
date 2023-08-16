@@ -6,7 +6,8 @@ import ToggleButton from 'src/components/home/ToggleButton';
 import TitleImage from 'src/components/home/TitleImage';
 import { useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
-
+import { useSetRecoilState } from 'recoil';
+import { searchResult } from 'src/store/atom';
 const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({
@@ -17,6 +18,7 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
+  const setAnswer = useSetRecoilState(searchResult);
   const router = useRouter();
 
   // useEffect(() => {
@@ -24,7 +26,7 @@ export default function Index() {
   //     router.push('/dashboard/one');
   //   }
   // });
-  const [answer, setAnswer] = useState([]);
+
   function handleEnterPress(event) {
     if (event.key === 'Enter') {
       // 원하는 동작을 여기에 넣어주세요.
@@ -72,6 +74,8 @@ export default function Index() {
       ],
     });
 
+    setAnswer([]);
+
     const chatgptResponse = await completion.data.choices[0].message.content
       .match(/\d+\.\s(.*?)(?=\n|$)/g)
       ?.map((match) => match.replace(/^\d+\.\s/, ''));
@@ -80,6 +84,7 @@ export default function Index() {
         searchUsingWord(word);
       });
   };
+
   const searchUsingWord = async (word) => {
     console.log(word);
     const searchResult = await SearchAPI(word);
@@ -88,8 +93,6 @@ export default function Index() {
     } else {
       setAnswer((prev) => [...prev, ...searchResult?.items]);
     }
-
-    console.log(answer);
   };
   return (
     <Box
@@ -127,7 +130,6 @@ export default function Index() {
             onKeyPress={handleEnterPress}
           />
         </Paper>
-
         <TodayKeywords />
       </Box>
     </Box>
