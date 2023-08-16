@@ -1,4 +1,6 @@
 import { Box } from '@mui/material';
+import SearchResultBlock from '../idea/SearchResultBlock';
+import { member } from 'src/data/memberData';
 type SearchResultBlockProps = {
   item: {
     title: string;

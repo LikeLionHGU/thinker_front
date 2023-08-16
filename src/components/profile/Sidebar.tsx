@@ -4,7 +4,7 @@ import { Box, List, ListItemButton, ListItemIcon, ListItemText, Typography } fro
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import { member } from 'src/pages/profile/data';
+import { member } from 'src/data/memberData';
 
 export default function Sidebar() {
   const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
