@@ -1,8 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
-import { searchResult } from './data';
-import Image from 'next/image';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import SearchResultBlock from '../../components/idea/SearchResultBlock';
+import { Box } from '@mui/material';
+import SearchResultBlock from 'src/components/idea/SearchResultBlock';
+
 export default function IdeaResultPage() {
   return (
     <Box
