@@ -8,20 +8,26 @@ import EmptyAlert from 'src/components/profile/EmptyAlert';
 import SearchResultBlock from 'src/components/idea/SearchResultBlock';
 import ServiceAchievement from 'src/components/profile/ServiceAchievement';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserApi } from 'src/apis/user';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export const getServerSideProps: GetServerSideProps<{
-  repo: any;
-}> = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/29`);
-  const repo = await res.json();
-  return { props: { repo } };
-};
+// export const getServerSideProps: GetServerSideProps<{
+//   repo: any;
+// }> = async () => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/29`);
+//   const repo = await res.json();
+//   return { props: { repo } };
+// };
 
-export default function profile({ repo }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(repo);
+export default function Profile() {
+  const [profileInfo, setProfileInfo] = useState(null);
+
+  useEffect(() => {
+    getUserApi(29).then((res) => {
+      setProfileInfo(res);
+    });
+  }, []);
 
   return (
     <Box

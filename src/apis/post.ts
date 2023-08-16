@@ -7,7 +7,9 @@ export const getAllCommunities = async () => {
 };
 
 export const getOneCommunity = async (userId: number) => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post/${userId}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post/${userId}`, {
+    cache: 1,
+  });
 
   return response.data;
 };
