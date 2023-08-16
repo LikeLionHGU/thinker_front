@@ -5,7 +5,14 @@
     "es2021": true
   },
   "plugins": ["prettier", "@typescript-eslint"],
-  "extends": ["airbnb", "airbnb/hooks", "prettier", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
