@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
 import { useSetRecoilState } from 'recoil';
 import { searchResultAtom } from 'src/store/atom';
-import GoogleButton from '../auth/GoogleLogin';
+import GoogleButton from '../auth/GoogleButton';
 import { getAllCommunities } from '/src/apis/post.ts';
 const { Configuration, OpenAIApi } = require('openai');
 
@@ -101,7 +101,6 @@ export default function Index() {
         justifyContent: 'center',
       }}
     >
-      <GoogleButton />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', px: '50px' }}>
         <TitleImage />
 

@@ -15,7 +15,14 @@ import Divider from 'src/components/header/Divider';
 import { m } from 'framer-motion';
 import { useScroll } from 'react-use';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-// import Link from 'next/link';
+import Link from 'next/link';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isLoginAtom } from 'src/store/atom.ts';
+import GoogleButton from '../../auth/GoogleButton';
+import { Google } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +32,14 @@ Header.propTypes = {
 
 export default function Header({ isOffset }) {
   const theme = useTheme();
+  const router = useRouter();
+
+  const [isLoginState, setIsLoginState] = useState(null);
+  const [recoilLoginValue, setRecoilLoginValue] = useRecoilState(isLoginAtom);
+
+  useEffect(() => {
+    setIsLoginState(recoilLoginValue);
+  }, [recoilLoginValue]);
 
   return (
     <AppBar
@@ -69,7 +84,25 @@ export default function Header({ isOffset }) {
         </FlexAlignBox>
 
         <FlexAlignBox>
-          <LinkTextButton text="로그인" link="/profile" />
+          {isLoginState ? (
+            <Box sx={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+              <Button
+                sx={{ color: 'white', fontSize: '15px', mb: 1 }}
+                variant="text"
+                onClick={() => {
+                  setRecoilLoginValue(false);
+                  router.push('/');
+                }}
+              >
+                로그 아웃
+              </Button>
+              <Link href="/profile">
+                <AccountCircleIcon sx={{ color: 'white', fontSize: '2rem' }} />
+              </Link>
+            </Box>
+          ) : (
+            <GoogleButton />
+          )}
         </FlexAlignBox>
       </Toolbar>
 

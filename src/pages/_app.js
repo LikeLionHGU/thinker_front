@@ -31,6 +31,7 @@ import { ThemeSettings, SettingsProvider } from '../components/settings';
 import { AuthProvider } from '../auth/JwtContext';
 import { RecoilRoot } from 'recoil';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Header from '../layouts/compact/Header';
 
 // ----------------------------------------------------------------------
 
@@ -63,6 +64,7 @@ export default function MyApp(props) {
                     <ThemeLocalization>
                       <SnackbarProvider>
                         <ProgressBar />
+                        <Header />
                         {getLayout(<Component {...pageProps} />)}
                       </SnackbarProvider>
                     </ThemeLocalization>
