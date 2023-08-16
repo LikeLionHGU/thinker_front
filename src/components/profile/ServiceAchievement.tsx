@@ -14,7 +14,8 @@ type SearchResultBlockProps = {
   };
 };
 export default function ServiceAchievement() {
-  const converter = (data): SearchResultBlockProps => {
+  // SearchResultBlockProps
+  const converter = (data): any => {
     const item = {
       title: data.title,
       snippet: '',

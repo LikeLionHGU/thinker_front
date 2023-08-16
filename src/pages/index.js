@@ -4,11 +4,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import TodayKeywords from 'src/components/home/TodayKeywords';
 import ToggleButton from 'src/components/home/ToggleButton';
 import TitleImage from 'src/components/home/TitleImage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
 import { useSetRecoilState } from 'recoil';
 import { searchResultAtom } from 'src/store/atom';
 import GoogleButton from '../auth/GoogleLogin';
+import { getAllCommunities } from '/src/apis/post.ts';
 const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({

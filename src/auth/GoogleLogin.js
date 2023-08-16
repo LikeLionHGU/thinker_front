@@ -3,7 +3,7 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import React, { useRef } from 'react';
-
+import { loginApi } from '/src/apis/user.ts';
 import { Button } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { isLoginAtom, loginIdAtom } from '/src/store/atom.ts';
@@ -16,6 +16,11 @@ export default function GoogleButton() {
     const decodedToken = jwtDecode(credentialResponse.credential);
 
     console.log(decodedToken);
+    const userInfo = {
+      id: parseInt(decodedToken.sub.slice(0, 8)),
+      name: decodedToken.family_name,
+      email: decodedToken.email,
+    };
     const res = await loginApi(decodedToken.sub);
 
     setIsLoginState(true);

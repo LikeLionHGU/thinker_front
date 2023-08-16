@@ -1,9 +1,11 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
+const isBrowser = typeof window !== 'undefined';
+
 const { persistAtom } = recoilPersist({
   key: 'localStorage', //원하는 key 값 입력
-  storage: localStorage,
+  storage: isBrowser ? localStorage : null,
 });
 
 export const isAuto = atom({
@@ -34,6 +36,6 @@ export const isLoginAtom = atom({
 
 export const loginIdAtom = atom({
   key: 'loginId',
-  default: null,
+  default: {},
   effects_UNSTABLE: [persistAtom],
 });

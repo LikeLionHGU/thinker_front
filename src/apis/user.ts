@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getUserApi = async (userId: number): IloginApiResponse => {
+export const getUserApi = async (userId: number) => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/${userId}`);
 
   return response.data;
