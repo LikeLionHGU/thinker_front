@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-export const getUserApi = async (): IloginApiResponse => {
+export const getUserApi = async (userId: number): IloginApiResponse => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/${userId}`);
 
   return response.data;
 };
 
-export const loginApi = async (userInfo: IloginApi) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user`);
+export const loginApi = async (userInfo: IloginApiRequest) => {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user`, userInfo);
+  return response.data;
 };
 
 /**

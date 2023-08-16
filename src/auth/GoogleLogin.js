@@ -5,14 +5,23 @@ import jwtDecode from 'jwt-decode';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-
+import { useRecoilValue } from 'recoil';
+import { isLoginAtom, loginIdAtom } from '/src/store/atom.ts';
 export default function GoogleButton() {
   const navigate = useNavigate();
 
+  const setIsLoginState = useRecoilValue(isLoginAtom);
+  const setIsLoginIdState = useRecoilValue(loginIdAtom);
   // const { loginWithCredential } = useAuthContext();
 
   const onSuccess = async (credentialResponse) => {
     const decodedToken = jwtDecode(credentialResponse.credential);
+
+    console.log(decodedToken);
+    const res = await loginApi(decodedToken.sub);
+
+    setIsLoginState(true);
+    setIsLoginIdState(decodedToken.sub);
 
     // userLogin(decodedToken.sub)
     //   .then((response) => {
