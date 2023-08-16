@@ -33,7 +33,9 @@ export default function Profile() {
         pt: '132px',
       }}
     >
-      <Sidebar member={{ name: profileInfo?.name, email: profileInfo?.email }} />
+      <Sidebar
+        member={{ name: profileInfo?.name as string, email: profileInfo?.email as string }}
+      />
       {/* <EmptyAlert /> */}
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '300px' }}></Box>

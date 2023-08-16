@@ -11,7 +11,7 @@ export const getOneCommunity = async (userId: number) => {
     cache: 'no-store',
   });
 
-  return response.data;
+  return response.json();
 };
 
 export const writeCommunity = async (post: IWriteCommunityRequest, userId: number) => {
