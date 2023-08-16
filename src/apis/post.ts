@@ -5,3 +5,17 @@ export const getAllCommunities = async (userId: number) => {
 
   return response.data;
 };
+
+export const writeCommunity = async (post: IWriteCommunityRequest, userId: number) => {
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_SPRING_URL}/api/post/${userId}`,
+    post
+  );
+
+  return response.data;
+};
+
+interface IWriteCommunityRequest {
+  title: string;
+  content: string;
+}

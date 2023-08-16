@@ -1,8 +1,10 @@
-import { useRecoilState } from 'recoil';
-import { scriptAtom } from 'src/store/atom';
+import { useRecoilValue } from 'recoil';
+import { loginIdAtom, scriptAtom } from 'src/store/atom';
 import { Box, Button, TextField } from '@mui/material';
 import { m } from 'framer-motion';
 import { makeStyles } from '@mui/styles';
+import { useState } from 'react';
+import { writeCommunity } from 'src/apis/post';
 
 const useStyles = makeStyles({
   customTextField: {
@@ -22,9 +24,25 @@ const useStyles = makeStyles({
   },
 });
 export default function CommentTextArea() {
+  const userId = useRecoilValue(loginIdAtom);
+
+  const handleUpload = () => {
+    {
+      const post = {
+        title: '',
+        content: script,
+      };
+
+      writeCommunity(post, userId).then((res) => {
+        console.log(res);
+      });
+    }
+  };
+
   const classes = useStyles();
 
-  const [script, setScript] = useRecoilState(scriptAtom);
+  const [script, setScript] = useState('');
+
   return (
     <Box sx={{ position: 'relative' }}>
       <m.button
@@ -44,6 +62,7 @@ export default function CommentTextArea() {
           color: 'white',
           fontSize: '17px',
         }}
+        onClick={handleUpload}
       >
         업로드
       </m.button>
