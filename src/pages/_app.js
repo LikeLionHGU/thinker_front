@@ -30,6 +30,7 @@ import { ThemeSettings, SettingsProvider } from '../components/settings';
 
 import { AuthProvider } from '../auth/JwtContext';
 import { RecoilRoot } from 'recoil';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // ----------------------------------------------------------------------
 
@@ -52,24 +53,26 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      <RecoilRoot>
-        <AuthProvider>
-          <SettingsProvider>
-            <MotionLazyContainer>
-              <ThemeProvider>
-                <ThemeSettings>
-                  <ThemeLocalization>
-                    <SnackbarProvider>
-                      <ProgressBar />
-                      {getLayout(<Component {...pageProps} />)}
-                    </SnackbarProvider>
-                  </ThemeLocalization>
-                </ThemeSettings>
-              </ThemeProvider>
-            </MotionLazyContainer>
-          </SettingsProvider>
-        </AuthProvider>
-      </RecoilRoot>
+      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
+        <RecoilRoot>
+          <AuthProvider>
+            <SettingsProvider>
+              <MotionLazyContainer>
+                <ThemeProvider>
+                  <ThemeSettings>
+                    <ThemeLocalization>
+                      <SnackbarProvider>
+                        <ProgressBar />
+                        {getLayout(<Component {...pageProps} />)}
+                      </SnackbarProvider>
+                    </ThemeLocalization>
+                  </ThemeSettings>
+                </ThemeProvider>
+              </MotionLazyContainer>
+            </SettingsProvider>
+          </AuthProvider>
+        </RecoilRoot>
+      </GoogleOAuthProvider>
     </CacheProvider>
   );
 }

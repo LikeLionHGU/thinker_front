@@ -14,7 +14,7 @@ export default function communityPage() {
     const currentDate = new Date();
 
     // Calculate the difference in milliseconds
-    const diffInMilliseconds = currentDate - inputDate;
+    const diffInMilliseconds = currentDate.getTime() - inputDate.getTime();
 
     // Convert time difference into various units
     const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
@@ -53,7 +53,7 @@ export default function communityPage() {
 
           {allPost.map((post) => (
             <Box
-              key={post.id}
+              key={post.postId}
               sx={{
                 color: 'white',
                 height: '300px',
