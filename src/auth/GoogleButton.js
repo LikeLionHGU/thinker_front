@@ -18,7 +18,7 @@ export default function GoogleButton() {
 
     const userInfo = {
       id: decodedToken.sub.slice(0, 5),
-      name: decodedToken.family_name,
+      name: decodedToken.family_name + decodedToken.given_name,
       email: decodedToken.email,
     };
 

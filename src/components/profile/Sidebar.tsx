@@ -6,7 +6,11 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { member } from 'src/data/memberData';
 
-export default function Sidebar() {
+interface IMember {
+  name: string;
+  email: string;
+}
+export default function Sidebar({ member }: IMember) {
   const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
   return (
     <Box
@@ -27,10 +31,10 @@ export default function Sidebar() {
     >
       <AccountCircleIcon sx={{ width: '100px', height: '100px', borderRadius: '50px' }} />
       <Typography variant="h5" sx={{ mb: '10px' }}>
-        {member.name}
+        {member?.name}
       </Typography>
       <Typography variant="h6" sx={{ mb: '10px', color: 'success.main' }}>
-        {member.email}
+        {member?.email}
       </Typography>
       {/* <Box sx={{ borderTop: 2, borderBottom: 2, width: '100%', py: '10px' }}></Box> */}
       <List component="nav" sx={{ width: '100%' }} aria-label="main mailbox folders">

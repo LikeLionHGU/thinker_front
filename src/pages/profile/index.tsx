@@ -12,20 +12,13 @@ import { useEffect, useState } from 'react';
 import { getUserApi } from 'src/apis/user';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-// export const getServerSideProps: GetServerSideProps<{
-//   repo: any;
-// }> = async () => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/user/29`);
-//   const repo = await res.json();
-//   return { props: { repo } };
-// };
-
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState(null);
 
   useEffect(() => {
     getUserApi(29).then((res) => {
       setProfileInfo(res);
+      console.log(res);
     });
   }, []);
 
@@ -40,7 +33,7 @@ export default function Profile() {
         pt: '132px',
       }}
     >
-      <Sidebar />
+      <Sidebar member={{ name: profileInfo?.name, email: profileInfo?.email }} />
       {/* <EmptyAlert /> */}
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '300px' }}></Box>
