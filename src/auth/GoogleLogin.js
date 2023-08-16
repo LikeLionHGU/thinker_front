@@ -3,13 +3,11 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { isLoginAtom, loginIdAtom } from '/src/store/atom.ts';
 export default function GoogleButton() {
-  const navigate = useNavigate();
-
   const setIsLoginState = useRecoilValue(isLoginAtom);
   const setIsLoginIdState = useRecoilValue(loginIdAtom);
   // const { loginWithCredential } = useAuthContext();
