@@ -98,8 +98,11 @@ export default function BasicModal({ post }: any) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <IconButton sx={{ position: 'absolute', right: '10px', top: '10px' }}>
-            <CloseIcon onClick={handleClose} sx={{ fontSize: '25px', color: 'white' }} />
+          <IconButton
+            onClick={handleClose}
+            sx={{ position: 'absolute', right: '10px', top: '10px' }}
+          >
+            <CloseIcon sx={{ fontSize: '25px', color: 'white' }} />
           </IconButton>
           <Comment post={post as any} />
           <Box
