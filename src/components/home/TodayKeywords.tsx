@@ -9,8 +9,11 @@ import Divider from '../header/Divider';
 import { m, AnimatePresence } from 'framer-motion';
 import { todayKeywords } from 'src/data/todayKeywordsData';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function TodayKeywords() {
+  const router = useRouter();
+
   const isAutoState = useRecoilValue(isAuto);
 
   // 현재 날짜를 YYYY-MM-DD 형식으로 얻어옵니다.
@@ -24,7 +27,7 @@ export default function TodayKeywords() {
 
   return (
     <AnimatePresence>
-      {!isAutoState ? (
+      {!isAutoState || router.pathname !== '/' ? (
         <m.div
           initial={{
             opacity: 0,
