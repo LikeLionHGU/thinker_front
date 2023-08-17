@@ -15,17 +15,18 @@ export default function CustomToggleButton() {
   return (
     <Box>
       <ToggleButtonGroup
-        color="secondary"
+        color={`${isAtomState ? 'warning' : 'primary'}`}
         value={isAtomState}
         onChange={handleToggleChange}
         exclusive
+        sx={{ backgroundColor: 'black' }}
         aria-label="Platform"
       >
         <ToggleButton sx={{ height: '30px' }} value={false}>
-          IDEA
+          일반 모드
         </ToggleButton>
         <ToggleButton sx={{ height: '30px' }} value={true}>
-          URL
+          분석 모드
         </ToggleButton>
       </ToggleButtonGroup>
     </Box>
