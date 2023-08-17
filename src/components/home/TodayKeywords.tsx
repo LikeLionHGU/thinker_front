@@ -64,7 +64,7 @@ export default function TodayKeywords() {
 
             <Box sx={{ height: '20px' }} />
 
-            {keywordsForToday.map((keyword, index) => (
+            {keywordsForToday?.map((keyword, index) => (
               <>
                 <Chip
                   key={index}
