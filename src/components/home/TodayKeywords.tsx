@@ -39,7 +39,7 @@ export default function TodayKeywords() {
             y: 20,
           }}
         >
-          <FlexCenterBox width="700">
+          <FlexCenterBox width="800">
             <FlexCenterBox>
               <Image
                 src="/assets/images/home/mainSmall.png"
@@ -55,12 +55,12 @@ export default function TodayKeywords() {
               </Typography>
             </FlexCenterBox>
             <Divider />
-            <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
+            {/* <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
               오늘의 키워드를 조합하여 창의적인 아이디어를 만들어보세요.
-            </Typography>
-          </FlexCenterBox>
-          <Box sx={{ height: '20px' }} />
-          <FlexCenterBox>
+            </Typography> */}
+
+            <Box sx={{ height: '20px' }} />
+
             {keywordsForToday.map((keyword, index) => (
               <>
                 <Chip

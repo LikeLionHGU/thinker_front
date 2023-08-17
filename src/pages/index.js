@@ -1,17 +1,28 @@
 import { useRouter } from 'next/router';
-import { Box, IconButton, InputBase, Paper } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputBase,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Typography,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import TodayKeywords from 'src/components/home/TodayKeywords';
 import ToggleButton from 'src/components/home/ToggleButton';
 import TitleImage from 'src/components/home/TitleImage';
 import { useEffect, useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { searchResultAtom } from 'src/store/atom';
 import GoogleButton from '../auth/GoogleButton';
 import { getAllCommunities } from '/src/apis/post.ts';
 const { Configuration, OpenAIApi } = require('openai');
-
+import { isAuto } from 'src/store/atom';
 const configuration = new Configuration({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
@@ -20,7 +31,9 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
+  const [option, setOption] = useState('');
   const setAnswer = useSetRecoilState(searchResultAtom);
+  const isAutoState = useRecoilValue(isAuto);
   const router = useRouter();
 
   async function handleEnterPress(event) {
@@ -107,26 +120,78 @@ export default function Index() {
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <ToggleButton />
         </Box>
-        <Paper
-          component="form"
-          sx={{
-            p: '2px 4px',
-            display: 'flex',
-            alignItems: 'center',
-            width: 700,
-            backgroundColor: 'success.dark',
-          }}
-        >
-          <IconButton sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon sx={{ color: 'success.contrastText' }} />
-          </IconButton>
-          <InputBase
-            sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
-            placeholder="떠오르는 아이디어를 검색해보세요."
-            inputProps={{ 'aria-label': 'search google maps' }}
-            onKeyPress={handleEnterPress}
-          />
-        </Paper>
+        {isAutoState ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
+              🔗 분석하고 싶은 링크를 첨부해주세요
+            </Typography>
+            <Paper
+              component="form"
+              sx={{
+                p: '2px 4px',
+                display: 'flex',
+                alignItems: 'center',
+                width: 700,
+                height: '50px',
+                pl: '10px',
+                backgroundColor: 'success.dark',
+                mb: '10px',
+              }}
+            >
+              <InputBase
+                sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
+                placeholder="링크 입력 또는 붙여넣기"
+                inputProps={{ 'aria-label': 'search google maps' }}
+                onKeyPress={handleEnterPress}
+              />
+            </Paper>
+            <Typography variant="h6" sx={{ color: 'success.contrastText', mt: '20px' }}>
+              🔎 분석하고 싶은 옵션을 선택해주세요
+            </Typography>
+            <FormControl sx={{ minWidth: 80, mt: 1 }}>
+              <InputLabel id="demo-simple-select-autowidth-label">옵션 선택하기</InputLabel>
+              <Select
+                labelId="demo-simple-select-autowidth-label"
+                id="demo-simple-select-autowidth"
+                value={option}
+                onChange={(e) => setOption(e.target.value)}
+                autoWidth
+                label="옵션 선택하기"
+                sx={{ color: 'success.contrastText', width: '100%', mb: '30px' }}
+              >
+                <MenuItem value={10}>
+                  비즈니스 모델 • 서비스의 비즈니스 모델 캔버스를 확인해보세요.{' '}
+                </MenuItem>
+                <MenuItem value={21}>SWOT • 서비스의 강점/약점/기회/위협을 확인해보세요.</MenuItem>
+                <MenuItem value={22}>홍보 전략 • 서비스의 홍보 전략을 확인해보세요.</MenuItem>
+              </Select>
+            </FormControl>
+            <Button variant="contained" color="warning" sx={{ height: '50px' }}>
+              분석결과 보러가기
+            </Button>
+          </Box>
+        ) : (
+          <Paper
+            component="form"
+            sx={{
+              p: '2px 4px',
+              display: 'flex',
+              alignItems: 'center',
+              width: 700,
+              backgroundColor: 'success.dark',
+            }}
+          >
+            <IconButton sx={{ p: '10px' }} aria-label="search">
+              <SearchIcon sx={{ color: 'success.contrastText' }} />
+            </IconButton>
+            <InputBase
+              sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
+              placeholder="떠오르는 아이디어를 검색해보세요."
+              inputProps={{ 'aria-label': 'search google maps' }}
+              onKeyPress={handleEnterPress}
+            />
+          </Paper>
+        )}
         <TodayKeywords />
       </Box>
     </Box>
