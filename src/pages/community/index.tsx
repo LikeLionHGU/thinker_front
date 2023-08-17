@@ -8,19 +8,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { getAllCommunities, getOneCommunity } from 'src/apis/post';
+import { useRecoilValue } from 'recoil';
+import { loginIdAtom } from 'src/store/atom';
 
 export default function CommunityPage() {
   const [allPost, setAllPost] = useState([]);
-
+  const userId = useRecoilValue(loginIdAtom);
   //   fetch(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post`, {
   //     cashe: 'no-cache',
   //   })
   //     .then((res) => res.json())
   //     .then((res) => setAllPost(res));
-  
+
   useEffect(() => {
-    getAllCommunities().then((res) => {
+    getAllCommunities(userId).then((res) => {
       setAllPost(res);
+      console.log(res);
     });
   }, []);
   //   getOneCommunity().then((res) => {

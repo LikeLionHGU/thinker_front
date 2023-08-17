@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getAllCommunities = async () => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post`);
+export const getAllCommunities = async (userId: string) => {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_SPRING_URL}/api/post/${userId}`);
 
   return response.data;
 };
