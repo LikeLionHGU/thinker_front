@@ -97,7 +97,7 @@ export default function Index() {
         backgroundColor: 'success.darker',
         height: '100vh',
         display: 'flex',
-        alignItems: 'center',
+        pt: '100px',
         justifyContent: 'center',
       }}
     >
