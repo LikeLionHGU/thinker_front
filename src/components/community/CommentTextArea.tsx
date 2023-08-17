@@ -37,7 +37,7 @@ export default function CommentTextArea() {
        * userId가 안먹는다면 그 이유는 유저가 존재하지 않아서이다.
        * 유저가 존재하지 않는 이유는 userId를 autoIncrement로 했기 때문
        */
-      writeCommunity(post, 29)
+      writeCommunity(post, userId)
         .then((res) => {
           console.log(res);
           alert('댓글이 생성 되었습니다.');

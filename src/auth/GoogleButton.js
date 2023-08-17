@@ -17,7 +17,7 @@ export default function GoogleButton() {
     const decodedToken = jwtDecode(credentialResponse.credential);
 
     const userInfo = {
-      id: decodedToken.sub.slice(0, 5),
+      memberId: decodedToken.sub.slice(0, 5),
       name: decodedToken.family_name + decodedToken.given_name,
       email: decodedToken.email,
     };

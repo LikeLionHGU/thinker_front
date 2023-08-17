@@ -12,7 +12,7 @@ export default function PlusDivider() {
         },
         mx: {
           xs: '8px',
-          md: '15px',
+          md: '8px',
         },
       }}
     />

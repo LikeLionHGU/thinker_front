@@ -8,6 +8,7 @@ import PlusDivider from '../header/PlusDivider';
 import Divider from '../header/Divider';
 import { m, AnimatePresence } from 'framer-motion';
 import { todayKeywords } from 'src/data/todayKeywordsData';
+import Image from 'next/image';
 
 export default function TodayKeywords() {
   const isAutoState = useRecoilValue(isAuto);
@@ -38,18 +39,28 @@ export default function TodayKeywords() {
             y: 20,
           }}
         >
-          <FlexCenterBox width="700">
-            <Chip
-              label="오늘의 띵키워드"
-              sx={{ backgroundColor: 'success.contrastText', typography: 'h6', p: 1 }}
-            />
+          <FlexCenterBox width="800">
+            <FlexCenterBox>
+              <Image
+                src="/assets/images/home/mainSmall.png"
+                width={25}
+                height={30}
+                alt="작은 로고"
+              />
+              <Typography
+                variant="h6"
+                sx={{ color: 'success.contrastText', typography: 'h6', p: 1 }}
+              >
+                오늘의 띵키워드
+              </Typography>
+            </FlexCenterBox>
             <Divider />
-            <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
+            {/* <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
               오늘의 키워드를 조합하여 창의적인 아이디어를 만들어보세요.
-            </Typography>
-          </FlexCenterBox>
-          <Box sx={{ height: '20px' }} />
-          <FlexCenterBox>
+            </Typography> */}
+
+            <Box sx={{ height: '20px' }} />
+
             {keywordsForToday.map((keyword, index) => (
               <>
                 <Chip
