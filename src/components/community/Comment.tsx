@@ -60,10 +60,10 @@ export default function Comment({ post }: Props) {
       key={post?.postId}
       sx={{
         color: 'white',
-        height: '300px',
+        height: '200px',
         position: 'relative',
         borderColor: '#303030',
-        p: '30px',
+        p: '40px',
         display: 'flex',
         justifyContent: 'space-between',
       }}
@@ -73,7 +73,6 @@ export default function Comment({ post }: Props) {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          height: '100%',
         }}
       >
         <Box>
@@ -94,10 +93,27 @@ export default function Comment({ post }: Props) {
         </Box>
 
         <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
-          {true ? (
-            <FavoriteIcon sx={{ color: 'white' }} />
+          {post.isLiked ? (
+            <FavoriteIcon
+              onClick={() =>
+                deletePostLike(post.postId, userId).then((res) => {
+                  console.log(res);
+                  window.location.reload();
+                })
+              }
+              sx={{ color: 'white' }}
+            />
           ) : (
-            <FavoriteBorderIcon sx={{ color: 'white' }} />
+            <FavoriteBorderIcon
+              onClick={() => {
+                addPostLike(post.postId, userId).then((res) => {
+                  console.log(res);
+
+                  window.location.reload();
+                });
+              }}
+              sx={{ color: 'white' }}
+            />
           )}
           {post?.postLikeCount}
           <ModeCommentOutlinedIcon sx={{ ml: 2 }} />

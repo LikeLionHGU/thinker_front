@@ -8,10 +8,13 @@ import { loginIdAtom } from 'src/store/atom';
 import CommentTextArea from './CommentTextArea';
 import Comment from './comment';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import FlexAlignBox from '../common/FlexAlignBox';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { makeStyles } from '@mui/styles';
+import { addComment, addLikeComment, deleteLikeComment } from 'src/apis/comment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -27,6 +30,23 @@ const style = {
   backgroundColor: 'success.dark',
 };
 
+const useStyles = makeStyles({
+  customTextField: {
+    width: '100%',
+    '& .MuiOutlinedInput-root': {
+      color: 'white',
+      //   '& fieldset': {
+      //     borderColor: 'darkGray', // default
+      //   },
+      '&:hover fieldset': {
+        borderColor: 'darkGray', // on hover
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'white', // on focus
+      },
+    },
+  },
+});
 interface Props {
   postId: number;
   title: string;
@@ -54,13 +74,14 @@ interface IComment {
 }
 
 export default function BasicModal({ post }: any) {
+  const classes = useStyles();
   console.log('debug', post);
   // const [result, setResult] = React.useState({});
   const userId = useRecoilValue(loginIdAtom);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [content, setContent] = React.useState('');
   return (
     <>
       <Button
@@ -77,8 +98,8 @@ export default function BasicModal({ post }: any) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <IconButton sx={{ position: 'absolute', right: '20px', top: '20px' }}>
-            <CloseIcon onClick={handleClose} sx={{ fontSize: '30px', color: 'white' }} />
+          <IconButton sx={{ position: 'absolute', right: '10px', top: '10px' }}>
+            <CloseIcon onClick={handleClose} sx={{ fontSize: '25px', color: 'white' }} />
           </IconButton>
           <Comment post={post as any} />
           <Box
@@ -90,27 +111,92 @@ export default function BasicModal({ post }: any) {
               alignItems: 'center',
             }}
           >
-            {post.commentList.map((comment: IComment, index) => (
-              <Box
-                sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
-                key={index}
-              >
-                <FlexAlignBox>
-                  <Avatar sx={{ width: '50px', height: '50px', mr: '10px' }} />
-                  <FlexAlignBox sx={{ ml: '20px' }}>
-                    <Typography variant="h6" sx={{ mr: '20px' }}>
-                      {comment.memberName}
-                    </Typography>
-                    <Typography variant="body1">{comment.content}</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+
+                width: '100%',
+                height: '200px',
+                overflowY: 'scroll',
+              }}
+            >
+              {post.commentList.map((comment: IComment, index) => (
+                <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <FlexAlignBox>
+                    <Avatar sx={{ width: '50px', height: '50px', mr: '10px' }} />
+                    <FlexAlignBox sx={{ ml: '20px' }}>
+                      <Typography variant="h6" sx={{ mr: '20px' }}>
+                        {comment.memberName}
+                      </Typography>
+                      <Typography variant="body1">{comment.content}</Typography>
+                    </FlexAlignBox>
                   </FlexAlignBox>
-                </FlexAlignBox>
-                <Box>
-                  <IconButton>
-                    <FavoriteBorderIcon />
-                  </IconButton>
+                  <Box>
+                    {comment.commentLikeCount}
+                    <IconButton>
+                      {comment.isLiked ? (
+                        <FavoriteIcon
+                          onClick={() =>
+                            deleteLikeComment(post.postId, userId).then((res) => {
+                              console.log(res);
+                              window.location.reload();
+                            })
+                          }
+                          sx={{ color: 'white', mb: '10px' }}
+                        />
+                      ) : (
+                        <FavoriteBorderIcon
+                          onClick={() => {
+                            addLikeComment(post.postId, userId).then((res) => {
+                              console.log(res);
+
+                              window.location.reload();
+                            });
+                          }}
+                          sx={{ color: 'white' }}
+                        />
+                      )}
+                    </IconButton>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
+
+            <Box sx={{ position: 'relative', width: '100%' }}>
+              <TextField
+                id="filled-multiline-static"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                multiline
+                rows={3}
+                placeholder="당신의 아이디어를 작성해보세요"
+                variant="outlined"
+                sx={{
+                  width: '100%',
+                }}
+                className={classes.customTextField}
+              />
+              <Button
+                sx={{
+                  position: 'absolute',
+                  right: '10px',
+                  bottom: '10px',
+                  color: 'success.contrastText',
+                }}
+                variant="outlined"
+                onClick={() => {
+                  const data = { content };
+                  addComment(userId, post.postId, data).then((res) => {
+                    console.log(res.data);
+                    window.location.reload();
+                  });
+                }}
+              >
+                게시
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Modal>
