@@ -16,7 +16,7 @@ export const loginApi = async (userInfo: IloginApiRequest) => {
  */
 
 export interface IloginApiRequest {
-  id: number;
+  memberId: string;
   name: string;
   email: string;
 }

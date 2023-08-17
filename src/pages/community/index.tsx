@@ -17,7 +17,7 @@ export default function CommunityPage() {
   //   })
   //     .then((res) => res.json())
   //     .then((res) => setAllPost(res));
-  console.log('!');
+  
   useEffect(() => {
     getAllCommunities().then((res) => {
       setAllPost(res);
