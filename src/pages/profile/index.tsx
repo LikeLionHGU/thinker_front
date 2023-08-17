@@ -11,12 +11,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getUserApi } from 'src/apis/user';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { loginIdAtom } from 'src/store/atom';
+import { useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState(null);
-
+  const userId = useRecoilValue(loginIdAtom);
   useEffect(() => {
-    getUserApi(29).then((res) => {
+    getUserApi(userId).then((res) => {
       setProfileInfo(res);
       console.log(res);
     });
