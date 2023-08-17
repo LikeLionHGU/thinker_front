@@ -10,6 +10,10 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { getAllCommunities, getOneCommunity } from 'src/apis/post';
 import { useRecoilValue } from 'recoil';
 import { loginIdAtom } from 'src/store/atom';
+import DatePicker from 'src/components/community/DatePicker';
+import Modal from 'src/components/community/CustomModal';
+import littleModal from '../../components/community/CustomModal';
+import BasicModal from 'src/components/community/CustomModal';
 
 export default function CommunityPage() {
   const [allPost, setAllPost] = useState([]);
@@ -69,17 +73,18 @@ export default function CommunityPage() {
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '800px' }}>
         <TodayKeywords />
 
+        {/* <DatePicker /> */}
         <Box sx={{ p: '30px', borderColor: '#303030', mt: '30px' }}>
           <CommentTextArea />
 
-          {allPost.map((post) => (
+          {allPost?.map((post, index) => (
             <Box
-              key={post.postId}
+              key={post?.postId}
               sx={{
                 color: 'white',
                 height: '300px',
                 borderTop: 1,
-
+                position: 'relative',
                 mt: '30px',
 
                 borderColor: '#303030',
@@ -88,6 +93,8 @@ export default function CommunityPage() {
                 justifyContent: 'space-between',
               }}
             >
+              {post && <BasicModal post={post} />}
+
               <Box
                 sx={{
                   display: 'flex',
@@ -114,14 +121,14 @@ export default function CommunityPage() {
                 </Box>
 
                 <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
-                  {post.isLiked ? (
+                  {true ? (
                     <FavoriteIcon sx={{ color: 'white' }} />
                   ) : (
                     <FavoriteBorderIcon sx={{ color: 'white' }} />
                   )}
                   {post.postLikeCount}
                   <ModeCommentOutlinedIcon sx={{ ml: 2 }} />
-                  {133}
+                  {post.commentList.length}
                 </Box>
               </Box>
               <Box>{converter(post.date)}</Box>
