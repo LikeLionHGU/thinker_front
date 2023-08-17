@@ -31,6 +31,7 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
+  const [analysisLink, setAnalysisLink] = useState('');
   const [option, setOption] = useState('');
   const setAnswer = useSetRecoilState(searchResultAtom);
   const isAutoState = useRecoilValue(isAuto);
@@ -104,6 +105,11 @@ export default function Index() {
       setAnswer((prev) => [...prev, ...searchResult?.items]);
     }
   };
+
+  const handleClickAuto = () => {
+    // 오토 지피티 api 호출
+    // option + analysisLink
+  };
   return (
     <Box
       sx={{
@@ -139,25 +145,34 @@ export default function Index() {
               }}
             >
               <InputBase
+                value={analysisLink}
+                onChange={(e) => setAnalysisLink(e.target.value)}
                 sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
                 placeholder="링크 입력 또는 붙여넣기"
                 inputProps={{ 'aria-label': 'search google maps' }}
-                onKeyPress={handleEnterPress}
               />
             </Paper>
             <Typography variant="h6" sx={{ color: 'success.contrastText', mt: '20px' }}>
               🔎 분석하고 싶은 옵션을 선택해주세요
             </Typography>
             <FormControl sx={{ minWidth: 80, mt: 1 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">옵션 선택하기</InputLabel>
+              <InputLabel sx={{ color: 'white' }} id="demo-simple-select-autowidth-label">
+                옵션 선택하기
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
                 value={option}
                 onChange={(e) => setOption(e.target.value)}
                 autoWidth
-                label="옵션 선택하기"
-                sx={{ color: 'success.contrastText', width: '100%', mb: '30px' }}
+                sx={{
+                  color: 'success.contrastText',
+                  width: '100%',
+                  mb: '30px',
+                  '& .MuiSelect-select': {
+                    backgroundColor: 'success.dark',
+                  },
+                }}
               >
                 <MenuItem value={10}>
                   비즈니스 모델 • 서비스의 비즈니스 모델 캔버스를 확인해보세요.{' '}
@@ -166,7 +181,12 @@ export default function Index() {
                 <MenuItem value={22}>홍보 전략 • 서비스의 홍보 전략을 확인해보세요.</MenuItem>
               </Select>
             </FormControl>
-            <Button variant="contained" color="warning" sx={{ height: '50px' }}>
+            <Button
+              variant="contained"
+              color="warning"
+              sx={{ height: '50px' }}
+              onClick={handleClickAuto}
+            >
               분석결과 보러가기
             </Button>
           </Box>
