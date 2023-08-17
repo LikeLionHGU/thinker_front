@@ -39,3 +39,8 @@ export const loginIdAtom = atom({
   default: -1,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const datePickerDate = atom({
+  key: 'datePickerDate',
+  default: new Date(),
+});

@@ -25,14 +25,16 @@
     "@hookform/resolvers": "^2.9.11",
     "@iconify/react": "^4.1.0",
     "@mui/icons-material": "^5.14.3",
+    "@mui/x-date-pickers": "^6.9.2",
     "@mui/joy": "^5.0.0-beta.2",
-    "@mui/lab": "^5.0.0-alpha.120",
+    "@mui/lab": "^5.0.0-alpha.135",
     "@mui/material": "^5.11.10",
     "@mui/styles": "^5.14.5",
     "@next/font": "^13.1.6",
     "@react-oauth/google": "^0.11.1",
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.3.3",
+    "@material-ui/pickers": "^3.3.10",
     "change-case": "^4.1.2",
     "date-fns": "^2.29.3",
     "framer-motion": "^9.1.7",
@@ -56,7 +58,8 @@
     "simplebar-react": "^3.2.1",
     "stylis": "^4.1.3",
     "stylis-plugin-rtl": "^2.1.1",
-    "yup": "^1.0.0"
+    "yup": "^1.0.0",
+    "dayjs": "^1.11.9"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
