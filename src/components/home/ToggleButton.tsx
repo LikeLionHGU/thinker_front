@@ -19,7 +19,7 @@ export default function CustomToggleButton() {
         value={isAtomState}
         onChange={handleToggleChange}
         exclusive
-        sx={{ backgroundColor: 'black' }}
+        sx={{ backgroundColor: 'success.dark' }}
         aria-label="Platform"
       >
         <ToggleButton sx={{ height: '30px' }} value={false}>

@@ -7,7 +7,7 @@ import { allPost } from 'src/data/CommunityData';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import { getAllCommunities, getOneCommunity } from 'src/apis/post';
+import { addPostLike, deletePostLike, getAllCommunities, getOneCommunity } from 'src/apis/post';
 import { useRecoilValue } from 'recoil';
 import { loginIdAtom } from 'src/store/atom';
 import DatePicker from 'src/components/community/DatePicker';
@@ -121,10 +121,27 @@ export default function CommunityPage() {
                 </Box>
 
                 <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
-                  {true ? (
-                    <FavoriteIcon sx={{ color: 'white' }} />
+                  {post.isLiked ? (
+                    <FavoriteIcon
+                      onClick={() =>
+                        deletePostLike(post.postId, userId).then((res) => {
+                          console.log(res);
+                          window.location.reload();
+                        })
+                      }
+                      sx={{ color: 'white' }}
+                    />
                   ) : (
-                    <FavoriteBorderIcon sx={{ color: 'white' }} />
+                    <FavoriteBorderIcon
+                      onClick={() => {
+                        addPostLike(post.postId, userId).then((res) => {
+                          console.log(res);
+
+                          window.location.reload();
+                        });
+                      }}
+                      sx={{ color: 'white' }}
+                    />
                   )}
                   {post.postLikeCount}
                   <ModeCommentOutlinedIcon sx={{ ml: 2 }} />

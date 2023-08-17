@@ -116,7 +116,7 @@ export default function Index() {
         backgroundColor: 'success.darker',
         height: '100vh',
         display: 'flex',
-        pt: '100px',
+        pt: '130px',
         justifyContent: 'center',
       }}
     >

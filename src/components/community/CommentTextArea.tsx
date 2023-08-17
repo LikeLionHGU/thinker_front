@@ -52,7 +52,6 @@ export default function CommentTextArea() {
   const classes = useStyles();
 
   const [script, setScript] = useState('');
-
   return (
     <Box sx={{ position: 'relative' }}>
       <m.button
