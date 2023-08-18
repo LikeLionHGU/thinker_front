@@ -6,6 +6,8 @@ import { addBookmark } from 'src/apis/bookmark';
 import { isAuto, loginIdAtom } from 'src/store/atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Link from 'next/link';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useState } from 'react';
 
 type SearchResultBlockProps = {
   item: {
@@ -22,6 +24,7 @@ type SearchResultBlockProps = {
 
 export default function SearchResultBlock({ item }: SearchResultBlockProps) {
   const userId = useRecoilValue(loginIdAtom);
+  const [isLikeSuccess, setIsLikeSuccess] = useState(false);
   const setIsAutoState = useSetRecoilState(isAuto);
   return (
     <Box
@@ -80,21 +83,26 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
             p: '10px',
           }}
         >
-          <BookmarkBorderIcon
-            onClick={() => {
-              console.log(userId);
-              addBookmark(
-                userId,
-                item.link,
-                item.title,
-                item.snippet,
-                item.pagemap.metatags[0]['og:image']
-              ).then((res) => {
-                console.log(res.data);
-              });
-            }}
-          />
-          ㅡ
+          {isLikeSuccess ? (
+            <BookmarkIcon />
+          ) : (
+            <BookmarkBorderIcon
+              onClick={() => {
+                console.log(userId);
+                addBookmark(
+                  userId,
+                  item.link,
+                  item.title,
+                  item.snippet,
+                  item.pagemap.metatags[0]['og:image']
+                ).then((res) => {
+                  console.log(res.data);
+                  setIsLikeSuccess(true);
+                });
+              }}
+            />
+          )}
+
           <Link
             href={{
               pathname: '/',

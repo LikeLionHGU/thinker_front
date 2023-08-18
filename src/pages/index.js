@@ -157,9 +157,6 @@ export default function Index() {
               🔎 분석하고 싶은 옵션을 선택해주세요
             </Typography>
             <FormControl sx={{ minWidth: 80, mt: 1 }}>
-              <InputLabel sx={{ color: 'white' }} id="demo-simple-select-autowidth-label">
-                옵션 선택하기
-              </InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
