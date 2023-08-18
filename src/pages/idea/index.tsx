@@ -5,6 +5,19 @@ import { searchResultAtom } from 'src/store/atom';
 
 export default function IdeaResultPage() {
   const searchResult = useRecoilValue(searchResultAtom);
+
+  function uniqueByFirstFiveChars(arr) {
+    const seen = new Set();
+    return arr.filter((item) => {
+      const prefix = item.title.substr(0, 5);
+      if (seen.has(prefix)) {
+        return false;
+      }
+      seen.add(prefix);
+      return true;
+    });
+  }
+
   return (
     <Box
       sx={{
@@ -16,7 +29,7 @@ export default function IdeaResultPage() {
         py: '150px',
       }}
     >
-      {searchResult.map((item, index) => (
+      {uniqueByFirstFiveChars(searchResult).map((item, index) => (
         <SearchResultBlock key={index} item={item} />
       ))}
     </Box>

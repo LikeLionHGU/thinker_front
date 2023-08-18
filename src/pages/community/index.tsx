@@ -9,7 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { addPostLike, deletePostLike, getAllCommunities, getOneCommunity } from 'src/apis/post';
 import { useRecoilValue } from 'recoil';
-import { loginIdAtom } from 'src/store/atom';
+import { datePickerDate, loginIdAtom } from 'src/store/atom';
 import DatePicker from 'src/components/community/DatePicker';
 import Modal from 'src/components/community/CustomModal';
 import littleModal from '../../components/community/CustomModal';
@@ -33,6 +33,8 @@ export default function CommunityPage() {
   //   getOneCommunity().then((res) => {
   //     console.log(res);
   //   });
+
+  const datePickerDateState = useRecoilValue(datePickerDate);
 
   const converter = (localDateTime) => {
     const inputDate = new Date(localDateTime);
@@ -77,83 +79,96 @@ export default function CommunityPage() {
         <Box sx={{ p: '30px', borderColor: '#303030', mt: '30px' }}>
           <CommentTextArea />
 
-          {allPost?.map((post, index) => (
-            <Box
-              key={post?.postId}
-              sx={{
-                color: 'white',
-                height: '300px',
-                borderTop: 1,
-                position: 'relative',
-                mt: '30px',
-
-                borderColor: '#303030',
-                p: '30px',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              {post && <BasicModal post={post} />}
-
+          {allPost
+            .filter((post) => {
+              // post.date를 Date 객체로 변환
+              const postDate = new Date(post.date);
+              // 연, 월, 일만 비교
+              return (
+                postDate.getFullYear() === datePickerDateState.getFullYear() &&
+                postDate.getMonth() === datePickerDateState.getMonth() &&
+                postDate.getDate() === datePickerDateState.getDate()
+              );
+            })
+            .map((post, index) => (
               <Box
+                key={post?.postId}
                 sx={{
+                  color: 'white',
+                  height: '300px',
+                  borderTop: 1,
+                  position: 'relative',
+                  mt: '30px',
+
+                  borderColor: '#303030',
+                  p: '30px',
                   display: 'flex',
-                  flexDirection: 'column',
                   justifyContent: 'space-between',
-                  height: '100%',
                 }}
               >
-                <Box>
-                  <FlexAlignBox>
-                    <Avatar
-                      sx={{
-                        mr: '20px',
-                        width: '50px',
-                        height: '50px',
-                        backgroundColor: 'success.contrastText',
-                      }}
-                    />
-                    <Typography variant="h6">{post.member.name}</Typography>
-                  </FlexAlignBox>
-                  <Typography variant="body1" sx={{ ml: '70px' }}>
-                    {post.content}
-                  </Typography>
-                </Box>
+                {post && <BasicModal post={post} />}
 
-                <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
-                  {post.isLiked ? (
-                    <FavoriteIcon
-                      onClick={() =>
-                        deletePostLike(post.postId, userId).then((res) => {
-                          console.log(res);
-                          window.location.reload();
-                        })
-                      }
-                      sx={{ color: 'white' }}
-                    />
-                  ) : (
-                    <FavoriteBorderIcon
-                      onClick={() => {
-                        addPostLike(post.postId, userId).then((res) => {
-                          console.log(res);
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%',
+                  }}
+                >
+                  <Box>
+                    <FlexAlignBox>
+                      <Avatar
+                        sx={{
+                          mr: '20px',
+                          width: '50px',
+                          height: '50px',
+                          backgroundColor: 'success.contrastText',
+                        }}
+                      />
+                      <Typography variant="h6">{post.member.name}</Typography>
+                    </FlexAlignBox>
+                    <Typography variant="body1" sx={{ ml: '70px' }}>
+                      {post.content}
+                    </Typography>
+                  </Box>
 
-                          window.location.reload();
-                        });
-                      }}
-                      sx={{ color: 'white' }}
-                    />
-                  )}
-                  {post.postLikeCount}
-                  <ModeCommentOutlinedIcon sx={{ ml: 2 }} />
-                  {post.commentList.length}
+                  <Box sx={{ ml: '70px', display: 'flex', gap: '5px', alignItems: 'center' }}>
+                    {post.isLiked ? (
+                      <FavoriteIcon
+                        onClick={() =>
+                          deletePostLike(post.postId, userId).then((res) => {
+                            console.log(res);
+                            window.location.reload();
+                          })
+                        }
+                        sx={{ color: 'white' }}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon
+                        onClick={() => {
+                          addPostLike(post.postId, userId).then((res) => {
+                            console.log(res);
+
+                            window.location.reload();
+                          });
+                        }}
+                        sx={{ color: 'white' }}
+                      />
+                    )}
+                    {post.postLikeCount}
+                    <ModeCommentOutlinedIcon sx={{ ml: 2 }} />
+                    {post.commentList.length}
+                  </Box>
                 </Box>
+                <Box>{converter(post.date)}</Box>
               </Box>
-              <Box>{converter(post.date)}</Box>
-            </Box>
-          ))}
+            ))}
         </Box>
       </Box>
-      <Box sx={{ width: '300px', height: '350px', border: 1 }}>달력</Box>
+      <Box>
+        <DatePicker />
+      </Box>
     </Box>
   );
 }

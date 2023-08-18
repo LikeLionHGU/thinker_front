@@ -3,6 +3,9 @@ import FlexAlignBox from 'src/components/common/FlexAlignBox';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import { addPostLike, deletePostLike } from 'src/apis/post';
+import { useRecoilValue } from 'recoil';
+import { loginIdAtom } from 'src/store/atom';
 export const converter = (localDateTime) => {
   const inputDate = new Date(localDateTime);
   const currentDate = new Date();
@@ -54,7 +57,8 @@ interface IComment {
   memberId: number;
 }
 
-export default function Comment({ post }: Props) {
+export default function Comment({ post }: any) {
+  const userId = useRecoilValue(loginIdAtom);
   return (
     <Box
       key={post?.postId}

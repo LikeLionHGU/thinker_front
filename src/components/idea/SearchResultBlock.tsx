@@ -2,6 +2,9 @@ import { Box, Button, Typography } from '@mui/material';
 
 import Image from 'next/image';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { addBookmark } from 'src/apis/bookmark';
+import { loginIdAtom } from 'src/store/atom';
+import { useRecoilValue } from 'recoil';
 
 type SearchResultBlockProps = {
   item: {
@@ -17,6 +20,7 @@ type SearchResultBlockProps = {
 };
 
 export default function SearchResultBlock({ item }: SearchResultBlockProps) {
+  const userId = useRecoilValue(loginIdAtom);
   return (
     <Box
       sx={{
@@ -74,7 +78,20 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
             p: '10px',
           }}
         >
-          <BookmarkBorderIcon />
+          <BookmarkBorderIcon
+            onClick={() => {
+              console.log(userId);
+              addBookmark(
+                userId,
+                item.link,
+                item.title,
+                item.snippet,
+                item.pagemap.metatags[0]['og:image']
+              ).then((res) => {
+                console.log(res.data);
+              });
+            }}
+          />
           <Button
             variant="contained"
             sx={{
