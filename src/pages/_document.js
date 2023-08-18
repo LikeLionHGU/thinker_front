@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
           <meta name="keywords" content="react,material,kit,application,dashboard,admin,template" />
           <meta name="author" content="Minimal UI Kit" />
 
-          <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+          {/* <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
         </Head>
 
         <body>

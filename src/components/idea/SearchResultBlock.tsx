@@ -3,8 +3,9 @@ import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { addBookmark } from 'src/apis/bookmark';
-import { loginIdAtom } from 'src/store/atom';
-import { useRecoilValue } from 'recoil';
+import { isAuto, loginIdAtom } from 'src/store/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import Link from 'next/link';
 
 type SearchResultBlockProps = {
   item: {
@@ -21,6 +22,7 @@ type SearchResultBlockProps = {
 
 export default function SearchResultBlock({ item }: SearchResultBlockProps) {
   const userId = useRecoilValue(loginIdAtom);
+  const setIsAutoState = useSetRecoilState(isAuto);
   return (
     <Box
       sx={{
@@ -92,14 +94,25 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
               });
             }}
           />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: 'primary.darker',
+          ㅡ
+          <Link
+            href={{
+              pathname: '/',
+              query: { url: item.link },
+            }}
+            onClick={() => {
+              setIsAutoState(true);
             }}
           >
-            분석하기
-          </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: 'primary.darker',
+              }}
+            >
+              분석하기
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>

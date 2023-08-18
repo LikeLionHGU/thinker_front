@@ -31,11 +31,12 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
-  const [analysisLink, setAnalysisLink] = useState('');
   const [option, setOption] = useState('');
   const setAnswer = useSetRecoilState(searchResultAtom);
   const isAutoState = useRecoilValue(isAuto);
   const router = useRouter();
+  console.log(router.query.url);
+  const [analysisLink, setAnalysisLink] = useState(router.query.url ? router.query.url : '');
 
   async function handleEnterPress(event) {
     if (event.key === 'Enter') {
