@@ -21,6 +21,8 @@ export default function IdeaResultPage() {
   return (
     <Box
       sx={{
+        minHeight: '100vh',
+        minWidth: '1470px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

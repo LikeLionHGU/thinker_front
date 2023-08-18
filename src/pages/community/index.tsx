@@ -64,6 +64,7 @@ export default function CommunityPage() {
   return (
     <Box
       sx={{
+        minWidth: '1470px',
         backgroundColor: 'success.darker',
         minHeight: '100vh',
         display: 'flex',

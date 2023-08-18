@@ -40,7 +40,7 @@ export default function CommentTextArea() {
       writeCommunity(post, userId)
         .then((res) => {
           console.log(res);
-          alert('댓글이 생성 되었습니다.');
+          alert('글이 생성 되었습니다.');
           window.location.reload();
         })
         .catch((err) => {

@@ -8,7 +8,7 @@ export default function SearchLoading() {
       sx={{
         backgroundColor: 'success.darker',
         minHeight: '100vh',
-        pt: '200px',
+        pt: '0px',
         display: 'flex',
         flexDirection: 'column',
         gap: '50px',
@@ -80,6 +80,9 @@ export default function SearchLoading() {
         }}
       >
         잠시만 기다려주세요 :) <br />더 많은 영감을 모으고 있는 중입니다.
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', color: 'white' }}>
+        5분 이상 대기화면이 지속될 시 새로고침을 눌러주세요
       </Box>
     </Box>
   );
