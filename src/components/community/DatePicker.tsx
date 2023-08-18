@@ -26,10 +26,10 @@ export default function ResponsiveDatePickers() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer
+      {/* <DemoContainer
         components={['DatePicker', 'MobileDatePicker', 'DesktopDatePicker', 'StaticDatePicker']}
-      >
-        {/* <DemoItem label="Desktop variant">
+      > */}
+      {/* <DemoItem label="Desktop variant">
           <DesktopDatePicker defaultValue={dayjs('2022-04-17')} />
         </DemoItem>
         <DemoItem label="Mobile variant">
@@ -38,14 +38,14 @@ export default function ResponsiveDatePickers() {
         <DemoItem label="Responsive variant">
           <DatePicker defaultValue={dayjs('2022-04-17')} />
         </DemoItem> */}
-        <DemoItem label="Static variant">
-          <StaticDatePicker
-            value={dayjs(date)}
-            defaultValue={dayjs('2022-01-01')}
-            onChange={(newValue) => setDate(newValue.toDate())}
-          />
-        </DemoItem>
-      </DemoContainer>
+      {/* <DemoItem label="Static variant"> */}
+      <StaticDatePicker
+        value={dayjs(date)}
+        defaultValue={dayjs('2022-01-01')}
+        onChange={(newValue) => setDate(newValue.toDate())}
+      />
+      {/* </DemoItem> */}
+      {/* </DemoContainer> */}
     </LocalizationProvider>
   );
 }

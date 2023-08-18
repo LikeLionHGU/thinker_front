@@ -88,7 +88,7 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
                 item.snippet,
                 item.pagemap.metatags[0]['og:image']
               ).then((res) => {
-                console.log(res);
+                console.log(res.data);
               });
             }}
           />

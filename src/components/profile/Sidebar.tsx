@@ -22,7 +22,7 @@ export default function Sidebar({ member }) {
         borderRadius: '10px',
         width: '300px',
         height: '350px',
-        backgroundColor: '#D9D9D9',
+        backgroundColor: '',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

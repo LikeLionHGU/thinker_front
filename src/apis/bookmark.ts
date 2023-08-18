@@ -5,20 +5,25 @@ interface IData {
   url: string;
   title: string;
   description: string;
-  image: string;
+  imageUrl: string;
 }
 
-export const addBookmark = async ({ userId, url, title, description, image }: IData) => {
-  const data = {
-    imageUrl: image,
-    url,
-    title,
-    description,
-  };
+export const addBookmark = async (userId, url, title, description, imageUrl) => {
+  //   const data = {
+  //     imageUrl,
+  //     url,
+  //     title,
+  //     description,
+  //   };
 
   const response = await axios.post(
     `${process.env.NEXT_PUBLIC_SPRING_URL}/api/bookmark/add/${userId}`,
-    data
+    {
+      imageUrl,
+      url,
+      title,
+      description,
+    }
   );
 
   return response.data;
@@ -26,7 +31,7 @@ export const addBookmark = async ({ userId, url, title, description, image }: ID
 
 export const deleteBookmark = async (userId, url) => {
   const response = await axios.delete(
-    `${process.env.NEXT_PUBLIC_SPRING_URL}/api/bookmark/delete${11787}`,
+    `${process.env.NEXT_PUBLIC_SPRING_URL}/api/bookmark/delete${userId}`,
     { url }
   );
   return response;

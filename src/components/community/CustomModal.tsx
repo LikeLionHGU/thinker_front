@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { useRecoilValue } from 'recoil';
 import { loginIdAtom } from 'src/store/atom';
 import CommentTextArea from './CommentTextArea';
-import Comment from './comment';
+import Comment from './Comment';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -129,7 +129,7 @@ export default function BasicModal({ post }: any) {
                 <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <FlexAlignBox>
                     <Avatar sx={{ width: '50px', height: '50px', mr: '10px' }} />
-                    <FlexAlignBox sx={{ ml: '20px' }}>
+                    <FlexAlignBox>
                       <Typography variant="h6" sx={{ mr: '20px' }}>
                         {comment.memberName}
                       </Typography>
