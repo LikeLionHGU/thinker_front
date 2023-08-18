@@ -3,8 +3,11 @@ import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { addBookmark } from 'src/apis/bookmark';
-import { loginIdAtom } from 'src/store/atom';
-import { useRecoilValue } from 'recoil';
+import { isAuto, loginIdAtom } from 'src/store/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import Link from 'next/link';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useState } from 'react';
 
 type SearchResultBlockProps = {
   item: {
@@ -21,6 +24,8 @@ type SearchResultBlockProps = {
 
 export default function SearchResultBlock({ item }: SearchResultBlockProps) {
   const userId = useRecoilValue(loginIdAtom);
+  const [isLikeSuccess, setIsLikeSuccess] = useState(false);
+  const setIsAutoState = useSetRecoilState(isAuto);
   return (
     <Box
       sx={{
@@ -78,28 +83,44 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
             p: '10px',
           }}
         >
-          <BookmarkBorderIcon
-            onClick={() => {
-              console.log(userId);
-              addBookmark(
-                userId,
-                item.link,
-                item.title,
-                item.snippet,
-                item.pagemap.metatags[0]['og:image']
-              ).then((res) => {
-                console.log(res.data);
-              });
+          {isLikeSuccess ? (
+            <BookmarkIcon />
+          ) : (
+            <BookmarkBorderIcon
+              onClick={() => {
+                console.log(userId);
+                addBookmark(
+                  userId,
+                  item.link,
+                  item.title,
+                  item.snippet,
+                  item.pagemap.metatags[0]['og:image']
+                ).then((res) => {
+                  console.log(res.data);
+                  setIsLikeSuccess(true);
+                });
+              }}
+            />
+          )}
+
+          <Link
+            href={{
+              pathname: '/',
+              query: { url: item.link },
             }}
-          />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: 'primary.darker',
+            onClick={() => {
+              setIsAutoState(true);
             }}
           >
-            분석하기
-          </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: 'primary.darker',
+              }}
+            >
+              분석하기
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>

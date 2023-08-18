@@ -15,6 +15,7 @@ export default function Sidebar({ member }) {
   return (
     <Box
       sx={{
+        color: 'white',
         scale: '0.8',
         position: 'fixed',
         left: '20px',
@@ -22,7 +23,7 @@ export default function Sidebar({ member }) {
         borderRadius: '10px',
         width: '300px',
         height: '350px',
-        backgroundColor: '',
+        backgroundColor: 'success.dark',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

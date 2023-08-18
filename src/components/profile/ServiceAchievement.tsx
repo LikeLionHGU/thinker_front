@@ -13,17 +13,17 @@ type SearchResultBlockProps = {
     };
   };
 };
-export default function ServiceAchievement() {
+export default function ServiceAchievement({ member }) {
   // SearchResultBlockProps
   const converter = (data): any => {
     const item = {
       title: data.title,
-      snippet: '',
+      snippet: data.description,
       link: data.url,
       pagemap: {
         metatags: [
           {
-            'og:image': '/assets/images/profile/profileLock.png',
+            'og:image': data.imgaeUrl,
           },
         ],
       },
@@ -48,7 +48,7 @@ export default function ServiceAchievement() {
       >
         서비스 모아보기
       </Box>
-      {member.bookMarkList.map((item, index) => (
+      {member?.bookMarkList?.map((item, index) => (
         <SearchResultBlock key={index} item={converter(item)} />
       ))}
     </Box>

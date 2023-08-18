@@ -16,6 +16,7 @@ import { useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState(null);
+  const [bookmarkList, setBookmarkList] = useState([]);
   const userId = useRecoilValue(loginIdAtom);
   useEffect(() => {
     getUserApi(userId).then((res) => {
@@ -41,7 +42,7 @@ export default function Profile() {
       {/* <EmptyAlert /> */}
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '300px' }}></Box>
-        <ServiceAchievement />
+        <ServiceAchievement member={profileInfo} />
       </Box>
     </Box>
   );
