@@ -2,12 +2,13 @@ import { Box, Button, Typography } from '@mui/material';
 
 import Image from 'next/image';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import { addBookmark } from 'src/apis/bookmark';
+import { addBookmark, deleteBookmark } from 'src/apis/bookmark';
 import { isAuto, loginIdAtom } from 'src/store/atom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Link from 'next/link';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 type SearchResultBlockProps = {
   item: {
@@ -24,8 +25,11 @@ type SearchResultBlockProps = {
 
 export default function SearchResultBlock({ item }: SearchResultBlockProps) {
   const userId = useRecoilValue(loginIdAtom);
-  const [isLikeSuccess, setIsLikeSuccess] = useState(false);
+
   const setIsAutoState = useSetRecoilState(isAuto);
+
+  const router = useRouter();
+  const [isLikeSuccess, setIsLikeSuccess] = useState(router.pathname === '/profile' ? true : false);
   return (
     <Box
       sx={{
@@ -84,7 +88,14 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
           }}
         >
           {isLikeSuccess ? (
-            <BookmarkIcon />
+            <BookmarkIcon
+              onClick={() => {
+                console.log(item.link);
+                // deleteBookmark(userId, item.link).then((res) => {
+                //   console.log('res', res.data);
+                // });
+              }}
+            />
           ) : (
             <BookmarkBorderIcon
               onClick={() => {
@@ -102,7 +113,6 @@ export default function SearchResultBlock({ item }: SearchResultBlockProps) {
               }}
             />
           )}
-
           <Link
             href={{
               pathname: '/',
