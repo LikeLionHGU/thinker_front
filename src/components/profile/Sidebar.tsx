@@ -12,6 +12,7 @@ interface IMember {
 }
 export default function Sidebar({ member }) {
   const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
+  console.log(selectedIndex);
   return (
     <Box
       sx={{

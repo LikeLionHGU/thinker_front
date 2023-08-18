@@ -11,8 +11,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getUserApi } from 'src/apis/user';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { loginIdAtom } from 'src/store/atom';
-import { useRecoilValue } from 'recoil';
+import { loginIdAtom, profileSelectedIndex } from 'src/store/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const [profileInfo, setProfileInfo] = useState(null);
@@ -24,10 +24,11 @@ export default function Profile() {
       console.log(res);
     });
   }, []);
-
+  const [selectedIndex, setSelectedIndex] = useRecoilState(profileSelectedIndex);
   return (
     <Box
       sx={{
+        minWidth: '1470px',
         minHeight: '100vh',
         backgroundColor: 'success.darker',
         display: 'flex',
@@ -42,7 +43,7 @@ export default function Profile() {
       {/* <EmptyAlert /> */}
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '300px' }}></Box>
-        <ServiceAchievement member={profileInfo} />
+        {selectedIndex === 0 ? <EmptyAlert /> : <ServiceAchievement member={profileInfo} />}
       </Box>
     </Box>
   );

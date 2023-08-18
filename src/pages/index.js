@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
+import SearchLoading from 'src/components/search/SearchLoading';
 import {
+  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -9,16 +11,19 @@ import {
   MenuItem,
   Paper,
   Select,
+  TextField,
   Typography,
 } from '@mui/material';
+
+import { autoGptApi } from 'src/apis/auto.ts';
 import SearchIcon from '@mui/icons-material/Search';
 import TodayKeywords from 'src/components/home/TodayKeywords';
 import ToggleButton from 'src/components/home/ToggleButton';
 import TitleImage from 'src/components/home/TitleImage';
 import { useEffect, useState } from 'react';
 import { SearchAPI } from 'src/apis/search.ts';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { searchResultAtom } from 'src/store/atom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { searchResultAtom, autoResultAtom } from 'src/store/atom';
 import GoogleButton from '../auth/GoogleButton';
 import { getAllCommunities } from '/src/apis/post.ts';
 const { Configuration, OpenAIApi } = require('openai');
@@ -31,6 +36,13 @@ const openai = new OpenAIApi(configuration);
 // ----------------------------------------------------------------------
 
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(false);
+  const linkOptions = [
+    'https://play.google.com/store/apps/details?id=com.netflix.mediaclient&hl=ko&gl=US',
+    'https://play.google.com/store/apps/details?id=com.spotify.music&hl=ko&gl=US',
+    'https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically&hl=ko&gl=US',
+  ];
+  const [autoResult, setAutoResult] = useRecoilState(autoResultAtom);
   const [option, setOption] = useState('');
   const setAnswer = useSetRecoilState(searchResultAtom);
   const isAutoState = useRecoilValue(isAuto);
@@ -108,12 +120,32 @@ export default function Index() {
   };
 
   const handleClickAuto = () => {
+    // console.log(option, analysisLink);
     // 오토 지피티 api 호출
     // option + analysisLink
+    const converter = (before) => {
+      switch (before) {
+        case 10:
+          return 'swot_data';
+        case 22:
+          return 'promotion_data';
+        default:
+          return 'promotion_data';
+      }
+    };
+    console.log(converter(option), analysisLink);
+    setIsLoading(true);
+    autoGptApi(converter(option), analysisLink).then((res) => {
+      setAutoResult(res.result);
+      router.push('/auto');
+    });
+
+    //
   };
   return (
     <Box
       sx={{
+        minWidth: ' 1470px',
         backgroundColor: 'success.darker',
         height: '100vh',
         display: 'flex',
@@ -121,18 +153,21 @@ export default function Index() {
         justifyContent: 'center',
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', px: '50px' }}>
-        <TitleImage />
+      {isLoading ? (
+        <SearchLoading />
+      ) : (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', px: '50px' }}>
+          <TitleImage />
 
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          <ToggleButton />
-        </Box>
-        {isAutoState ? (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
-              🔗 분석하고 싶은 링크를 첨부해주세요
-            </Typography>
-            <Paper
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <ToggleButton />
+          </Box>
+          {isAutoState ? (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Typography variant="h6" sx={{ color: 'success.contrastText' }}>
+                🔗 분석하고 싶은 링크를 첨부해주세요
+              </Typography>
+              {/* <Paper
               component="form"
               sx={{
                 p: '2px 4px',
@@ -152,66 +187,104 @@ export default function Index() {
                 placeholder="링크 입력 또는 붙여넣기"
                 inputProps={{ 'aria-label': 'search google maps' }}
               />
-            </Paper>
-            <Typography variant="h6" sx={{ color: 'success.contrastText', mt: '20px' }}>
-              🔎 분석하고 싶은 옵션을 선택해주세요
-            </Typography>
-            <FormControl sx={{ minWidth: 80, mt: 1 }}>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
-                value={option}
-                onChange={(e) => setOption(e.target.value)}
-                autoWidth
-                sx={{
-                  color: 'success.contrastText',
-                  width: '100%',
-                  mb: '30px',
-                  '& .MuiSelect-select': {
-                    backgroundColor: 'success.dark',
-                  },
-                }}
+            </Paper> */}
+              {/* <Paper
+              component="form"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                width: 700,
+                height: '50px',
+              }}
+            > */}
+              <Autocomplete
+                sx={{ width: '100%' }}
+                value={analysisLink}
+                color="info"
+                onChange={(event, newValue) => setAnalysisLink(newValue)}
+                options={linkOptions}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    style={{ color: 'white' }}
+                    color="info"
+                    sx={{
+                      width: '100%',
+                      backgroundColor: 'success.dark',
+
+                      flex: 1,
+                      '& input': { color: 'white' },
+                      borderColor: 'white',
+                    }}
+                    placeholder="링크 입력 또는 붙여넣기"
+                    inputProps={{ 'aria-label': 'search google maps', ...params.inputProps }}
+                  />
+                )}
+              />
+              {/* </Paper> */}
+              <Typography variant="h6" sx={{ color: 'success.contrastText', mt: '20px' }}>
+                🔎 분석하고 싶은 옵션을 선택해주세요
+              </Typography>
+              <FormControl sx={{ minWidth: 80, mt: 1 }}>
+                <Select
+                  labelId="demo-simple-select-autowidth-label"
+                  id="demo-simple-select-autowidth"
+                  value={option}
+                  onChange={(e) => {
+                    console.log('De', e.target.value);
+                    setOption(e.target.value);
+                  }}
+                  autoWidth
+                  sx={{
+                    color: 'success.contrastText',
+                    width: '100%',
+                    mb: '30px',
+                    '& .MuiSelect-select': {
+                      backgroundColor: 'success.dark',
+                    },
+                  }}
+                >
+                  <MenuItem value={10}>
+                    SWOT • 서비스의 강점/약점/기회/위협을 확인해보세요.
+                  </MenuItem>
+
+                  <MenuItem value={22}>홍보 전략 • 서비스의 홍보 전략을 확인해보세요.</MenuItem>
+                </Select>
+              </FormControl>
+              <Button
+                variant="contained"
+                color="warning"
+                sx={{ height: '50px' }}
+                onClick={handleClickAuto}
               >
-                <MenuItem value={10}>
-                  비즈니스 모델 • 서비스의 비즈니스 모델 캔버스를 확인해보세요.{' '}
-                </MenuItem>
-                <MenuItem value={21}>SWOT • 서비스의 강점/약점/기회/위협을 확인해보세요.</MenuItem>
-                <MenuItem value={22}>홍보 전략 • 서비스의 홍보 전략을 확인해보세요.</MenuItem>
-              </Select>
-            </FormControl>
-            <Button
-              variant="contained"
-              color="warning"
-              sx={{ height: '50px' }}
-              onClick={handleClickAuto}
+                분석결과 보러가기
+              </Button>
+            </Box>
+          ) : (
+            <Paper
+              component="form"
+              sx={{
+                p: '2px 4px',
+                display: 'flex',
+                alignItems: 'center',
+                width: 700,
+                backgroundColor: 'success.dark',
+              }}
             >
-              분석결과 보러가기
-            </Button>
-          </Box>
-        ) : (
-          <Paper
-            component="form"
-            sx={{
-              p: '2px 4px',
-              display: 'flex',
-              alignItems: 'center',
-              width: 700,
-              backgroundColor: 'success.dark',
-            }}
-          >
-            <IconButton sx={{ p: '10px' }} aria-label="search">
-              <SearchIcon sx={{ color: 'success.contrastText' }} />
-            </IconButton>
-            <InputBase
-              sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
-              placeholder="떠오르는 아이디어를 검색해보세요."
-              inputProps={{ 'aria-label': 'search google maps' }}
-              onKeyPress={handleEnterPress}
-            />
-          </Paper>
-        )}
-        <TodayKeywords />
-      </Box>
+              <IconButton sx={{ p: '10px' }} aria-label="search">
+                <SearchIcon sx={{ color: 'success.contrastText' }} />
+              </IconButton>
+              <InputBase
+                sx={{ ml: 1, flex: 1, color: 'success.contrastText' }}
+                placeholder="떠오르는 아이디어를 검색해보세요."
+                inputProps={{ 'aria-label': 'search google maps' }}
+                onKeyPress={handleEnterPress}
+              />
+            </Paper>
+          )}
+          <TodayKeywords />
+        </Box>
+      )}
     </Box>
   );
 }

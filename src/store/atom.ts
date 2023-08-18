@@ -30,17 +30,22 @@ export const searchResultAtom = atom({
 
 export const isLoginAtom = atom({
   key: 'isLogin',
-  default: false,
+  default: true,
   effects_UNSTABLE: [persistAtom],
 });
 
 export const loginIdAtom = atom({
   key: 'loginId',
-  default: -1,
+  default: 11787,
   effects_UNSTABLE: [persistAtom],
 });
 
 export const datePickerDate = atom({
   key: 'datePickerDate',
   default: new Date(),
+});
+
+export const autoResultAtom = atom({
+  key: 'autoResult',
+  default: '',
 });

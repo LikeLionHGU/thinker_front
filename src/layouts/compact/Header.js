@@ -87,12 +87,12 @@ export default function Header({ isOffset }) {
           {isLoginState ? (
             <Box sx={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
               <Button
-                sx={{ color: 'white', fontSize: '15px', mb: 1 }}
-                variant="text"
-                onClick={() => {
-                  setRecoilLoginValue(false);
-                  router.push('/');
-                }}
+              // sx={{ color: 'white', fontSize: '15px', mb: 1 }}
+              // variant="text"
+              // onClick={() => {
+              //   setRecoilLoginValue(false);
+              //   router.push('/');
+              // }}
               >
                 로그 아웃
               </Button>
